@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N3 | Nytt - Nyttig - Nyttiggjort</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="variabler.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="old-version-header">
+        <h1>N3 Prosjekt Veiviser</h1>
+    </header>
+    <div class="container">
+        <div id="wizard">
+            <!-- New Step: Praktisk Del -->
+            <div class="step active" id="step-0">
+                <h2>PRAKTISK DEL</h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-0-text">Vi har et prosjekt, og vil bruke BLT-verktøyet i prosjektarbeidet vårt.</p>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="prosjekt-navn">Prosjektets navn:</label>
+                        <input type="text" id="prosjekt-navn" name="prosjekt-navn" placeholder="Skriv inn prosjektets navn" required>
+                        <small>For eksempel: Bedre helse.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="arbeidssted">Hvor jobber dere?</label>
+                        <input type="text" id="arbeidssted" name="arbeidssted" placeholder="Skriv inn arbeidssted" required>
+                        <small>Andre jobber</small>
+                    </div>
+                    <button type="button" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <!-- Step 1: Behov -->
+            <div class="step" id="step-1">
+                <h2 id="step-1-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-1-intro-text"></p>
+                </div>
+                <form>
+                    <label for="behov-beskrivelse" id="step-1-description"></label>
+                    <textarea id="behov-beskrivelse" name="behov-beskrivelse" placeholder="Beskriv behovet" required></textarea>
+                    <button type="button" onclick="prevStep()">Forrige</button>
+                    <button type="button" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <!-- Step 2: Løsning -->
+            <div class="step" id="step-2">
+                <h2 id="step-2-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-2-intro-text"></p>
+                </div>
+                <form>
+                    <label for="losning-beskrivelse" id="step-2-description"></label>
+                    <textarea id="losning-beskrivelse" name="losning-beskrivelse" placeholder="Beskriv løsningen" required></textarea>
+                    <button type="button" onclick="prevStep()">Forrige</button>
+                    <button type="button" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <!-- Step 3: Pådriver -->
+            <div class="step" id="step-3">
+                <h2 id="step-3-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-3-intro-text"></p>
+                </div>
+                <form>
+                    <label for="padriver-navn" id="step-3-description"></label>
+                    <input type="text" id="padriver-navn" name="padriver-navn" placeholder="Skriv inn pådriverens navn" required>
+                    <button type="button" onclick="prevStep()">Forrige</button>
+                    <button type="button" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <!-- Step 4: Team -->
+            <div class="step" id="step-4">
+                <h2 id="step-4-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-4-intro-text"></p>
+                </div>
+                <form>
+                    <label for="team-medlemmer" id="step-4-description"></label>
+                    <textarea id="team-medlemmer" name="team-medlemmer" placeholder="Skriv inn navnene på teammedlemmene" required></textarea>
+                    <button type="button" onclick="prevStep()">Forrige</button>
+                    <button type="button" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div></div>
+                </div>
+            </div>
+            <!-- Step 5: Forankring -->
+            <div class="step" id="step-5">
+                <h2 id="step-5-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-5-intro-text"></p>
+                </div>
+                <form>
+                    <label for="forankring-beskrivelse" id="step-5-description"></label>
+                    <textarea id="forankring-beskrivelse" name="forankring-beskrivelse" placeholder="Beskriv forankringen" required></textarea>
+                    <button type="button" onclick="prevStep()">Forrige</button>
+                    <button type="button" onclick="showSummary()">Oppsummering</button>
+                </form>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div (class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <!-- Summary -->
+            <div class="step" id="summary">
+                <h2 id="summary-title"></h2>
+                <button type="button" id="summary-prev-button" onclick="prevStep()">Forrige</button>
+                <button type="button" id="summary-export-button" onclick="exportToPDF()">Eksporter til PDF</button>
+                <button type="button" id="summary-reset-button" onclick="resetForm()">Start på nytt</button>
+                <div id="summary-content"></div>
+            </div>
+        </div>
+    </div>
+    <footer class="old-version-footer">
+        <p>&copy; 2025 - N3 | Nytt - Nyttig - Nyttiggjort</p>
+    </footer>
+</body>
+</html>
