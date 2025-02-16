@@ -65,7 +65,8 @@ function fillDefaultValues() {
         'team-medlemmer': 'Standard Teammedlemmer',
         'team-evaluation': 3,
         'forankring-beskrivelse': 'Standard Forankringsbeskrivelse',
-        'forankring-evaluation': 3
+        'forankring-evaluation': 3,
+        'step-21-description': 'Standard Veien videre'
     };
 
     Object.keys(defaultValues).forEach(id => {
@@ -77,6 +78,7 @@ function fillDefaultValues() {
 }
 
 function showSummary() {
+    fillDefaultValues();
     saveData();
     const summaryContent = document.getElementById('summary-content');
     summaryContent.innerHTML = `
@@ -94,6 +96,8 @@ function showSummary() {
         <p>${document.getElementById('team-medlemmer').value}</p>
         <h3>Forankring</h3>
         <p>${document.getElementById('forankring-beskrivelse').value}</p>
+        <h3>Veien videre</h3>
+        <p>${document.getElementById('step-21-description').value}</p>
         <h3>Evaluering</h3>
         <h4>Evaluering Bar Chart</h4>
         <canvas id="evaluationChart" width="400" height="200"></canvas>
@@ -145,7 +149,8 @@ function saveData() {
         losning: document.getElementById('losning-beskrivelse').value,
         padriver: document.getElementById('padriver-navn').value,
         team: document.getElementById('team-medlemmer').value,
-        forankring: document.getElementById('forankring-beskrivelse').value
+        forankring: document.getElementById('forankring-beskrivelse').value,
+        step21: document.getElementById('step-21-description').value
     };
     localStorage.setItem('projectData', JSON.stringify(data));
 }
@@ -160,6 +165,7 @@ function loadData() {
         document.getElementById('padriver-navn').value = data.padriver;
         document.getElementById('team-medlemmer').value = data.team;
         document.getElementById('forankring-beskrivelse').value = data.forankring;
+        document.getElementById('step-21-description').value = data.step21;
     }
 }
 
@@ -196,29 +202,42 @@ function exportToPDF() {
     doc.setTextColor(100, 100, 100);
     doc.text(`Dato: ${currentDate}`, 10, 30);
 
+    doc.setFontSize(18);
+    doc.setTextColor(40, 40, 40);
+    doc.text(document.getElementById('prosjekt-navn').value, 105, 40, null, null, 'center');
+
+    doc.setFontSize(16);
+    doc.setTextColor(60, 60, 60);
+    doc.text(document.getElementById('arbeidssted').value, 105, 50, null, null, 'center');
+
     const addSection = (title, content, yPosition) => {
-        doc.setFontSize(16);
+        doc.setFontSize(14);
         doc.setTextColor(60, 60, 60);
         doc.text(title, 10, yPosition);
-        doc.setFontSize(14);
+        doc.setFontSize(12);
         doc.setTextColor(80, 80, 80);
         doc.text(content, 10, yPosition + 10);
     };
 
-    let yPosition = 40;
-    addSection("Prosjektets navn:", document.getElementById('prosjekt-navn').value, yPosition);
-    yPosition += 30;
-    addSection("Hvor jobber dere?", document.getElementById('arbeidssted').value, yPosition);
-    yPosition += 30;
+    let yPosition = 60;
     addSection("Behov:", document.getElementById('behov-beskrivelse').value, yPosition);
-    yPosition += 30;
+    yPosition += 20;
     addSection("Løsning:", document.getElementById('losning-beskrivelse').value, yPosition);
-    yPosition += 30;
+    yPosition += 20;
     addSection("Pådriver:", document.getElementById('padriver-navn').value, yPosition);
-    yPosition += 30;
+    yPosition += 20;
     addSection("Team:", document.getElementById('team-medlemmer').value, yPosition);
-    yPosition += 30;
+    yPosition += 20;
     addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, yPosition);
+    yPosition += 20;
+    addSection("Veien videre:", document.getElementById('step-21-description').value, yPosition);
+    yPosition += 20;
+
+    const canvas = document.getElementById('evaluationChart');
+    if (canvas) {
+        const imgData = canvas.toDataURL('image/png');
+        doc.addImage(imgData, 'PNG', 10, yPosition, 180, 80);
+    }
 
     doc.setFontSize(10);
     doc.setTextColor(150, 150, 150);
