@@ -132,6 +132,8 @@ const wizardTexts = {
         title: "Oppsummering",
         prevButton: "Forrige",
         exportButton: "Eksporter til PDF",
-        resetButton: "Start på nytt"
+        resetButton: "Start på nytt",
+        evaluationTitle: "Evaluering",
+        evaluationChartTitle: "Deres vurdering av de 5 fundamentene",
     }
 };

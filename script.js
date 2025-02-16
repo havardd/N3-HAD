@@ -96,15 +96,15 @@ function showSummary() {
         <p>${document.getElementById('team-medlemmer').value}</p>
         <h3>Forankring</h3>
         <p>${document.getElementById('forankring-beskrivelse').value}</p>
-        <h3>Veien videre</h3>
-        <p>${document.getElementById('step-21-description').value}</p>
         ${Array.from({ length: 22 }, (_, i) => `
             <h3>${wizardTexts[`step${i}`]?.title || `Steg ${i}`}</h3>
             <p>${document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || ''}</p>
         `).join('')}
-        <h3>Evaluering</h3>
-        <h4>Evaluering Bar Chart</h4>
+        <h3>${wizardTexts.summary.evaluationTitle || 'Evaluering'}</h3>
+        <h4>${wizardTexts.summary.evaluationChartTitle || 'Evaluering Bar Chart'}</h4>
         <canvas id="evaluationChart" width="400" height="200"></canvas>
+        <h3>Veien videre</h3>
+        <p>${document.getElementById('step-21-description').value}</p>
     `;
     document.getElementById(`step-${currentStep}`).classList.remove('active');
     currentStep = 22;
@@ -126,8 +126,20 @@ function renderEvaluationChart() {
                 parseInt(document.getElementById('team-evaluation').value) || 0,
                 parseInt(document.getElementById('forankring-evaluation').value) || 0
             ],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: [
+                '#3498db', /* Blue */
+                '#e74c3c', /* Red */
+                '#2ecc71', /* Green */
+                '#f1c40f', /* Yellow */
+                '#9b59b6'  /* Purple */
+            ],
+            borderColor: [
+                '#2980b9', /* Darker Blue */
+                '#c0392b', /* Darker Red */
+                '#27ae60', /* Darker Green */
+                '#f39c12', /* Darker Yellow */
+                '#8e44ad'  /* Darker Purple */
+            ],
             borderWidth: 1
         }]
     };
@@ -231,7 +243,6 @@ function exportToPDF() {
     yPosition = addSection("Pådriver:", document.getElementById('padriver-navn').value, yPosition);
     yPosition = addSection("Team:", document.getElementById('team-medlemmer').value, yPosition);
     yPosition = addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, yPosition);
-    yPosition = addSection("Veien videre:", document.getElementById('step-21-description').value, yPosition);
 
     for (let i = 0; i < 22; i++) {
         const stepDescription = document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || '';
@@ -252,7 +263,10 @@ function exportToPDF() {
             yPosition = 20;
         }
         doc.addImage(imgData, 'PNG', 10, yPosition, 180, 80);
+        yPosition += 90;
     }
+
+    yPosition = addSection("Veien videre:", document.getElementById('step-21-description').value, yPosition);
 
     doc.setFontSize(10);
     doc.setTextColor(150, 150, 150);
