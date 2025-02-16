@@ -221,17 +221,13 @@ function exportToPDF() {
 
     let yPosition = 60;
     addSection("Behov:", document.getElementById('behov-beskrivelse').value, yPosition);
-    yPosition += 20;
-    addSection("Løsning:", document.getElementById('losning-beskrivelse').value, yPosition);
-    yPosition += 20;
-    addSection("Pådriver:", document.getElementById('padriver-navn').value, yPosition);
-    yPosition += 20;
+    yPosition += 30;
     addSection("Team:", document.getElementById('team-medlemmer').value, yPosition);
-    yPosition += 20;
+    yPosition += 30;
     addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, yPosition);
-    yPosition += 20;
+    yPosition += 30;
     addSection("Veien videre:", document.getElementById('step-21-description').value, yPosition);
-    yPosition += 20;
+    yPosition += 30;
 
     const canvas = document.getElementById('evaluationChart');
     if (canvas) {
