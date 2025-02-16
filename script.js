@@ -82,20 +82,36 @@ function showSummary() {
     saveData();
     const summaryContent = document.getElementById('summary-content');
     summaryContent.innerHTML = `
-        <h3>Prosjektets navn</h3>
-        <p>${document.getElementById('prosjekt-navn').value}</p>
-        <h3>Hvor jobber dere?</h3>
-        <p>${document.getElementById('arbeidssted').value}</p>
-        <h3>Behov</h3>
-        <p>${document.getElementById('behov-beskrivelse').value}</p>
-        <h3>Løsning</h3>
-        <p>${document.getElementById('losning-beskrivelse').value}</p>
-        <h3>Pådriver</h3>
-        <p>${document.getElementById('padriver-navn').value}</p>
-        <h3>Team</h3>
-        <p>${document.getElementById('team-medlemmer').value}</p>
-        <h3>Forankring</h3>
-        <p>${document.getElementById('forankring-beskrivelse').value}</p>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <h3>Prosjektets navn</h3>
+                <p>${document.getElementById('prosjekt-navn').value}</p>
+            </div>
+            <div>
+                <h3>Hvor jobber dere?</h3>
+                <p>${document.getElementById('arbeidssted').value}</p>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <h3>Behov</h3>
+                <p>${document.getElementById('behov-beskrivelse').value}</p>
+            </div>
+            <div>
+                <h3>Løsning</h3>
+                <p>${document.getElementById('losning-beskrivelse').value}</p>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <h3>Team</h3>
+                <p>${document.getElementById('team-medlemmer').value}</p>
+            </div>
+            <div>
+                <h3>Forankring</h3>
+                <p>${document.getElementById('forankring-beskrivelse').value}</p>
+            </div>
+        </div>
         ${Array.from({ length: 22 }, (_, i) => `
             <h3>${wizardTexts[`step${i}`]?.title || `Steg ${i}`}</h3>
             <p>${document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || ''}</p>
@@ -150,7 +166,15 @@ function renderEvaluationChart() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 5
+                    max: 5,
+                    ticks: {
+                        stepSize: 1,
+                        callback: function(value) {
+                            if (Number.isInteger(value)) {
+                                return value;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -206,7 +230,7 @@ function exportToPDF() {
         creator: 'Ditt Navn'
     });
 
-    doc.setFontSize(22);
+    doc.setFontSize(20);
     doc.setTextColor(40, 40, 40);
     doc.text("Prosjektrapport", 105, 20, null, null, 'center');
 
@@ -218,55 +242,52 @@ function exportToPDF() {
     doc.setTextColor(100, 100, 100);
     doc.text(`Dato: ${currentDate}`, 10, 30);
 
-    doc.setFontSize(18);
-    doc.setTextColor(40, 40, 40);
-    doc.text(document.getElementById('prosjekt-navn').value, 105, 40, null, null, 'center');
-
-    doc.setFontSize(16);
-    doc.setTextColor(60, 60, 60);
-    doc.text(document.getElementById('arbeidssted').value, 105, 50, null, null, 'center');
-
-    const addSection = (title, content, yPosition) => {
-        doc.setFontSize(14);
-        doc.setTextColor(60, 60, 60);
-        doc.text(title, 10, yPosition);
+    const addSection = (title, content, xPosition, yPosition) => {
         doc.setFontSize(12);
+        doc.setTextColor(60, 60, 60);
+        doc.text(title, xPosition, yPosition);
+        doc.setFontSize(10);
         doc.setTextColor(80, 80, 80);
-        const splitContent = doc.splitTextToSize(content, 180);
-        doc.text(splitContent, 10, yPosition + 10);
-        return yPosition + 10 + splitContent.length * 10;
+        const splitContent = doc.splitTextToSize(content, 80);
+        doc.text(splitContent, xPosition, yPosition + 5);
+        return yPosition + 5 + splitContent.length * 5;
     };
 
-    let yPosition = 60;
-    yPosition = addSection("Behov:", document.getElementById('behov-beskrivelse').value, yPosition);
-    yPosition = addSection("Løsning:", document.getElementById('losning-beskrivelse').value, yPosition);
-    yPosition = addSection("Pådriver:", document.getElementById('padriver-navn').value, yPosition);
-    yPosition = addSection("Team:", document.getElementById('team-medlemmer').value, yPosition);
-    yPosition = addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, yPosition);
+    let yPosition = 40;
+    yPosition = addSection("Prosjektets navn:", document.getElementById('prosjekt-navn').value, 10, yPosition);
+    yPosition = addSection("Hvor jobber dere?", document.getElementById('arbeidssted').value, 110, yPosition);
+
+    yPosition += 20;
+    yPosition = addSection("Behov:", document.getElementById('behov-beskrivelse').value, 10, yPosition);
+    yPosition = addSection("Løsning:", document.getElementById('losning-beskrivelse').value, 110, yPosition);
+
+    yPosition += 20;
+    yPosition = addSection("Team:", document.getElementById('team-medlemmer').value, 10, yPosition);
+    yPosition = addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, 110, yPosition);
 
     for (let i = 0; i < 22; i++) {
         const stepDescription = document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || '';
         if (stepDescription) {
-            if (yPosition + 30 > doc.internal.pageSize.height) {
+            if (yPosition + 20 > doc.internal.pageSize.height) {
                 doc.addPage();
                 yPosition = 20;
             }
-            yPosition = addSection(`Steg ${i}:`, stepDescription, yPosition);
+            yPosition = addSection(`${wizardTexts[`step${i}`]?.title || `Steg ${i}`}:`, stepDescription, 10, yPosition);
         }
     }
 
     const canvas = document.getElementById('evaluationChart');
     if (canvas) {
         const imgData = canvas.toDataURL('image/png');
-        if (yPosition + 90 > doc.internal.pageSize.height) {
+        if (yPosition + 80 > doc.internal.pageSize.height) {
             doc.addPage();
             yPosition = 20;
         }
         doc.addImage(imgData, 'PNG', 10, yPosition, 180, 80);
-        yPosition += 90;
+        yPosition += 80;
     }
 
-    yPosition = addSection("Veien videre:", document.getElementById('step-21-description').value, yPosition);
+    yPosition = addSection(wizardTexts.step21.title || "Veien videre:", document.getElementById('step-21-description').value, 10, yPosition);
 
     doc.setFontSize(10);
     doc.setTextColor(150, 150, 150);
