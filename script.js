@@ -1,29 +1,6 @@
 let currentStep = 0;
 
-async function getTextSuggestion(inputText, fieldId) {
-    try {
-        console.log('Sending request to AI model with input:', inputText);
-        const response = await fetch('http://localhost:4000/generate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ inputText })
-        });
-        if (!response.ok) {
-            if (response.status === 405) {
-                console.error('HTTP error 405: Method Not Allowed. Please check the server configuration.');
-            }
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log('API response:', data);
-        return data.suggestion;
-    } catch (error) {
-        console.error('Error generating text suggestion:', error);
-        return 'Error fetching suggestion';
-    }
-}
+
 
 function nextStep() {
     fillDefaultValues();
@@ -54,19 +31,19 @@ function prevStep() {
 
 function fillDefaultValues() {
     const defaultValues = {
-        'prosjekt-navn': 'Standard Prosjektnavn',
-        'arbeidssted': 'Standard Arbeidssted',
-        'behov-beskrivelse': 'Standard Behovsbeskrivelse',
-        'behov-evaluation': 3,
-        'losning-beskrivelse': 'Standard Løsningsbeskrivelse',
-        'losning-evaluation': 3,
-        'padriver-navn': 'Standard Pådrivernavn',
-        'padriver-evaluation': 3,
-        'team-medlemmer': 'Standard Teammedlemmer',
-        'team-evaluation': 3,
-        'forankring-beskrivelse': 'Standard Forankringsbeskrivelse',
-        'forankring-evaluation': 3,
-        'step-21-description': 'Standard Veien videre'
+        'prosjekt-navn': 'Flere inntektsskapende tiltak for å øke inntektene til bedriften',
+        'arbeidssted': 'HAD Data',
+        'behov-beskrivelse': 'Bedriften trenger flere inntektsskapende tiltak for å øke inntektene.',
+        'behov-evaluation': 1,
+        'losning-beskrivelse': 'Bedriften skal utvikle flere inntektsskapende tiltak for å øke inntektene.',
+        'losning-evaluation': 1,
+        'padriver-navn': 'Ola Nordmann',
+        'padriver-evaluation': 1,
+        'team-medlemmer': 'Siri Rådgiver, Ola Utvikler og Kari Designer',
+        'team-evaluation': 1,
+        'forankring-beskrivelse': 'Rektor, lærere og elever bør involveres i prosjektet.',
+        'forankring-evaluation': 1,
+        'step-21-description': 'Prosjektet skal fortsette å utvikle flere inntektsskapende tiltak for å øke inntektene.'
     };
 
     Object.keys(defaultValues).forEach(id => {
@@ -84,11 +61,11 @@ function showSummary() {
     summaryContent.innerHTML = `
         <div style="display: flex; justify-content: space-between;">
             <div>
-                <h3>Prosjektets navn</h3>
+                <h1>Prosjektets navn</h1>
                 <p>${document.getElementById('prosjekt-navn').value}</p>
             </div>
             <div>
-                <h3>Hvor jobber dere?</h3>
+                <h1>Oppdragsgiver</h1>
                 <p>${document.getElementById('arbeidssted').value}</p>
             </div>
         </div>
@@ -112,10 +89,10 @@ function showSummary() {
                 <p>${document.getElementById('forankring-beskrivelse').value}</p>
             </div>
         </div>
-        ${Array.from({ length: 22 }, (_, i) => `
+        ${Array.from({ length: 22 }, (_, i) => i > 0 ? `
             <h3>${wizardTexts[`step${i}`]?.title || `Steg ${i}`}</h3>
             <p>${document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || ''}</p>
-        `).join('')}
+        ` : '').join('')}
         <h3>${wizardTexts.summary.evaluationTitle || 'Evaluering'}</h3>
         <h4>${wizardTexts.summary.evaluationChartTitle || 'Evaluering Bar Chart'}</h4>
         <canvas id="evaluationChart" width="400" height="200"></canvas>
