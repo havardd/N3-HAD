@@ -98,6 +98,10 @@ function showSummary() {
         <p>${document.getElementById('forankring-beskrivelse').value}</p>
         <h3>Veien videre</h3>
         <p>${document.getElementById('step-21-description').value}</p>
+        ${Array.from({ length: 22 }, (_, i) => `
+            <h3>${wizardTexts[`step${i}`]?.title || `Steg ${i}`}</h3>
+            <p>${document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || ''}</p>
+        `).join('')}
         <h3>Evaluering</h3>
         <h4>Evaluering Bar Chart</h4>
         <canvas id="evaluationChart" width="400" height="200"></canvas>
@@ -216,22 +220,37 @@ function exportToPDF() {
         doc.text(title, 10, yPosition);
         doc.setFontSize(12);
         doc.setTextColor(80, 80, 80);
-        doc.text(content, 10, yPosition + 10);
+        const splitContent = doc.splitTextToSize(content, 180);
+        doc.text(splitContent, 10, yPosition + 10);
+        return yPosition + 10 + splitContent.length * 10;
     };
 
     let yPosition = 60;
-    addSection("Behov:", document.getElementById('behov-beskrivelse').value, yPosition);
-    yPosition += 30;
-    addSection("Team:", document.getElementById('team-medlemmer').value, yPosition);
-    yPosition += 30;
-    addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, yPosition);
-    yPosition += 30;
-    addSection("Veien videre:", document.getElementById('step-21-description').value, yPosition);
-    yPosition += 30;
+    yPosition = addSection("Behov:", document.getElementById('behov-beskrivelse').value, yPosition);
+    yPosition = addSection("Løsning:", document.getElementById('losning-beskrivelse').value, yPosition);
+    yPosition = addSection("Pådriver:", document.getElementById('padriver-navn').value, yPosition);
+    yPosition = addSection("Team:", document.getElementById('team-medlemmer').value, yPosition);
+    yPosition = addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, yPosition);
+    yPosition = addSection("Veien videre:", document.getElementById('step-21-description').value, yPosition);
+
+    for (let i = 0; i < 22; i++) {
+        const stepDescription = document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || '';
+        if (stepDescription) {
+            if (yPosition + 30 > doc.internal.pageSize.height) {
+                doc.addPage();
+                yPosition = 20;
+            }
+            yPosition = addSection(`Steg ${i}:`, stepDescription, yPosition);
+        }
+    }
 
     const canvas = document.getElementById('evaluationChart');
     if (canvas) {
         const imgData = canvas.toDataURL('image/png');
+        if (yPosition + 90 > doc.internal.pageSize.height) {
+            doc.addPage();
+            yPosition = 20;
+        }
         doc.addImage(imgData, 'PNG', 10, yPosition, 180, 80);
     }
 

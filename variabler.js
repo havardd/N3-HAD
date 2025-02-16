@@ -87,37 +87,37 @@ const wizardTexts = {
         introText: "Rektor, lærere og elever bør involveres i prosjektet."
     },
     step15: {
-        title: "Step 15",
+        title: "Hvordan involvere de som bør involveres?",
         text: "Description for step 15.",
         description: "Details for step 15",
         introText: "Intro text for step 15."
     },
     step16: {
-        title: "Step 16",
+        title: "Hva er målet med prosjektet?",
         text: "Description for step 16.",
         description: "Details for step 16",
         introText: "Intro text for step 16."
     },
     step17: {
-        title: "Step 17",
+        title: "Hvordan skal dere nå målet?",
         text: "Description for step 17.",
         description: "Details for step 17",
         introText: "Intro text for step 17."
     },
     step18: {
-        title: "Step 18",
+        title: "Hvordan skal dere vite at dere har nådd målet?",
         text: "Description for step 18.",
         description: "Details for step 18",
         introText: "Intro text for step 18."
     },
     step19: {
-        title: "Step 19",
+        title: "Hvordan skal dere evaluere prosjektet?",
         text: "Description for step 19.",
         description: "Details for step 19",
         introText: "Intro text for step 19."
     },
     step20: {
-        title: "Step 20",
+        title: "Hvordan skal dere dokumentere prosjektet?",
         text: "Description for step 20.",
         description: "Details for step 20",
         introText: "Intro text for step 20."
