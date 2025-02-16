@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N3 | Nytt - Nyttig - Nyttiggjort</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Add favicon link -->
+    <link rel="icon" href="favicon.png" type="image/png"> <!-- Add PNG format -->
+    <link rel="apple-touch-icon" href="favicon.png"> <!-- Add Apple touch icon -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="variabler.js" defer></script>
     <script src="script.js" defer></script>
@@ -33,9 +36,9 @@
                         <input type="text" id="arbeidssted" name="arbeidssted" placeholder="Skriv inn arbeidssted" required>
                         <small>Andre jobber</small>
                     </div>
-                    <button type="button" onclick="nextStep()">Neste</button>
+                    <button type="button" id="step-0-next" onclick="nextStep()">Neste</button>
                 </form>
-                <button type="button" onclick="showSummary()">Oppsummering</button>
+                <button type="button" id="step-0-summary" onclick="showSummary()">Oppsummering</button>
                 <div class="progress-bar">
                     <div class="active"></div>
                     <div></div>
@@ -55,10 +58,12 @@
                 <form>
                     <label for="behov-beskrivelse" id="step-1-description"></label>
                     <textarea id="behov-beskrivelse" name="behov-beskrivelse" placeholder="Beskriv behovet" required></textarea>
-                    <button type="button" onclick="prevStep()">Forrige</button>
-                    <button type="button" onclick="nextStep()">Neste</button>
+                    <label for="behov-evaluation">Evaluering (1-5):</label>
+                    <input type="number" id="behov-evaluation" name="behov-evaluation" min="1" max="5" required>
+                    <button type="button" id="step-1-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-1-next" onclick="nextStep()">Neste</button>
                 </form>
-                <button type="button" onclick="showSummary()">Oppsummering</button>
+                <button type="button" id="step-1-summary" onclick="showSummary()">Oppsummering</button>
                 <div class="progress-bar">
                     <div class="active"></div>
                     <div class="active"></div>
@@ -77,10 +82,12 @@
                 <form>
                     <label for="losning-beskrivelse" id="step-2-description"></label>
                     <textarea id="losning-beskrivelse" name="losning-beskrivelse" placeholder="Beskriv løsningen" required></textarea>
-                    <button type="button" onclick="prevStep()">Forrige</button>
-                    <button type="button" onclick="nextStep()">Neste</button>
+                    <label for="losning-evaluation">Evaluering (1-5):</label>
+                    <input type="number" id="losning-evaluation" name="losning-evaluation" min="1" max="5" required>
+                    <button type="button" id="step-2-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-2-next" onclick="nextStep()">Neste</button>
                 </form>
-                <button type="button" onclick="showSummary()">Oppsummering</button>
+                <button type="button" id="step-2-summary" onclick="showSummary()">Oppsummering</button>
                 <div class="progress-bar">
                     <div class="active"></div>
                     <div class="active"></div>
@@ -99,10 +106,12 @@
                 <form>
                     <label for="padriver-navn" id="step-3-description"></label>
                     <input type="text" id="padriver-navn" name="padriver-navn" placeholder="Skriv inn pådriverens navn" required>
-                    <button type="button" onclick="prevStep()">Forrige</button>
-                    <button type="button" onclick="nextStep()">Neste</button>
+                    <label for="padriver-evaluation">Evaluering (1-5):</label>
+                    <input type="number" id="padriver-evaluation" name="padriver-evaluation" min="1" max="5" required>
+                    <button type="button" id="step-3-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-3-next" onclick="nextStep()">Neste</button>
                 </form>
-                <button type="button" onclick="showSummary()">Oppsummering</button>
+                <button type="button" id="step-3-summary" onclick="showSummary()">Oppsummering</button>
                 <div class="progress-bar">
                     <div class="active"></div>
                     <div class="active"></div>
@@ -121,10 +130,12 @@
                 <form>
                     <label for="team-medlemmer" id="step-4-description"></label>
                     <textarea id="team-medlemmer" name="team-medlemmer" placeholder="Skriv inn navnene på teammedlemmene" required></textarea>
-                    <button type="button" onclick="prevStep()">Forrige</button>
-                    <button type="button" onclick="nextStep()">Neste</button>
+                    <label for="team-evaluation">Evaluering (1-5):</label>
+                    <input type="number" id="team-evaluation" name="team-evaluation" min="1" max="5" required>
+                    <button type="button" id="step-4-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-4-next" onclick="nextStep()">Neste</button>
                 </form>
-                <button type="button" onclick="showSummary()">Oppsummering</button>
+                <button type="button" id="step-4-summary" onclick="showSummary()">Oppsummering</button>
                 <div class="progress-bar">
                     <div class="active"></div>
                     <div class="active"></div>
@@ -143,14 +154,357 @@
                 <form>
                     <label for="forankring-beskrivelse" id="step-5-description"></label>
                     <textarea id="forankring-beskrivelse" name="forankring-beskrivelse" placeholder="Beskriv forankringen" required></textarea>
-                    <button type="button" onclick="prevStep()">Forrige</button>
-                    <button type="button" onclick="showSummary()">Oppsummering</button>
+                    <label for="forankring-evaluation">Evaluering (1-5):</label>
+                    <input type="number" id="forankring-evaluation" name="forankring-evaluation" min="1" max="5" required>
+                    <button type="button" id="step-5-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-5-next" onclick="nextStep()">Neste</button>
                 </form>
+                <button type="button" id="step-5-summary" onclick="showSummary()">Oppsummering</button>
                 <div class="progress-bar">
                     <div class="active"></div>
                     <div class="active"></div>
                     <div class="active"></div>
-                    <div (class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <!-- Add additional steps here -->
+            <div class="step" id="step-6">
+                <h2 id="step-6-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-6-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-6-description" id="step-6-description"></label>
+                    <textarea id="step-6-description" name="step-6-description" placeholder="Details for step 6" required></textarea>
+                    <button type="button" id="step-6-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-6-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-6-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <!-- Repeat for steps 7 to 21 -->
+            <div class="step" id="step-7">
+                <h2 id="step-7-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-7-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-7-description" id="step-7-description"></label>
+                    <textarea id="step-7-description" name="step-7-description" placeholder="Details for step 7" required></textarea>
+                    <button type="button" id="step-7-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-7-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-7-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <!-- Repeat for steps 8 to 21 -->
+            <div class="step" id="step-8">
+                <h2 id="step-8-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-8-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-8-description" id="step-8-description"></label>
+                    <textarea id="step-8-description" name="step-8-description" placeholder="Details for step 8" required></textarea>
+                    <button type="button" id="step-8-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-8-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-8-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <!-- Repeat for steps 9 to 21 -->
+            <div class="step" id="step-9">
+                <h2 id="step-9-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-9-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-9-description" id="step-9-description"></label>
+                    <textarea id="step-9-description" name="step-9-description" placeholder="Details for step 9" required></textarea>
+                    <button type="button" id="step-9-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-9-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-9-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div "active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <!-- Repeat for steps 10 to 21 -->
+            <div class="step" id="step-10">
+                <h2 id="step-10-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-10-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-10-description" id="step-10-description"></label>
+                    <textarea id="step-10-description" name="step-10-description" placeholder="Details for step 10" required></textarea>
+                    <button type="button" id="step-10-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-10-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-10-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-11">
+                <h2 id="step-11-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-11-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-11-description" id="step-11-description"></label>
+                    <textarea id="step-11-description" name="step-11-description" placeholder="Details for step 11" required></textarea>
+                    <button type="button" id="step-11-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-11-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-11-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-12">
+                <h2 id="step-12-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-12-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-12-description" id="step-12-description"></label>
+                    <textarea id="step-12-description" name="step-12-description" placeholder="Details for step 12" required></textarea>
+                    <button type="button" id="step-12-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-12-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-12-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-13">
+                <h2 id="step-13-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-13-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-13-description" id="step-13-description"></label>
+                    <textarea id="step-13-description" name="step-13-description" placeholder="Details for step 13" required></textarea>
+                    <button type="button" id="step-13-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-13-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-13-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-14">
+                <h2 id="step-14-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-14-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-14-description" id="step-14-description"></label>
+                    <textarea id="step-14-description" name="step-14-description" placeholder="Details for step 14" required></textarea>
+                    <button type="button" id="step-14-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-14-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-14-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-15">
+                <h2 id="step-15-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-15-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-15-description" id="step-15-description"></label>
+                    <textarea id="step-15-description" name="step-15-description" placeholder="Details for step 15" required></textarea>
+                    <button type="button" id="step-15-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-15-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-15-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-16">
+                <h2 id="step-16-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-16-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-16-description" id="step-16-description"></label>
+                    <textarea id="step-16-description" name="step-16-description" placeholder="Details for step 16" required></textarea>
+                    <button type="button" id="step-16-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-16-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-16-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-17">
+                <h2 id="step-17-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-17-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-17-description" id="step-17-description"></label>
+                    <textarea id="step-17-description" name="step-17-description" placeholder="Details for step 17" required></textarea>
+                    <button type="button" id="step-17-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-17-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-17-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-18">
+                <h2 id="step-18-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-18-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-18-description" id="step-18-description"></label>
+                    <textarea id="step-18-description" name="step-18-description" placeholder="Details for step 18" required></textarea>
+                    <button type="button" id="step-18-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-18-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-18-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-19">
+                <h2 id="step-19-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-19-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-19-description" id="step-19-description"></label>
+                    <textarea id="step-19-description" name="step-19-description" placeholder="Details for step 19" required></textarea>
+                    <button type="button" id="step-19-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-19-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-19-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-20">
+                <h2 id="step-20-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-20-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-20-description" id="step-20-description"></label>
+                    <textarea id="step-20-description" name="step-20-description" placeholder="Details for step 20" required></textarea>
+                    <button type="button" id="step-20-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-20-next" onclick="nextStep()">Neste</button>
+                </form>
+                <button type="button" id="step-20-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                </div>
+            </div>
+            <div class="step" id="step-21">
+                <h2 id="step-21-title"></h2>
+                <div class="intro-section">
+                    <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
+                    <p id="step-21-intro-text"></p>
+                </div>
+                <form>
+                    <label for="step-21-description" id="step-21-description"></label>
+                    <textarea id="step-21-description" name="step-21-description" placeholder="Details for step 21" required></textarea>
+                    <button type="button" id="step-21-prev" onclick="prevStep()">Forrige</button>
+                </form>
+                <button type="button" id="step-21-summary" onclick="showSummary()">Oppsummering</button>
+                <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
                     <div class="active"></div>
                 </div>
             </div>
@@ -165,7 +519,7 @@
         </div>
     </div>
     <footer class="old-version-footer">
-        <p>&copy; 2025 - N3 | Nytt - Nyttig - Nyttiggjort</p>
+        <p>&copy; HAD Data 2025 - N3 | Nytt - Nyttig - Nyttiggjort</p>
     </footer>
 </body>
 </html>

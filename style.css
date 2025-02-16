@@ -73,6 +73,16 @@ input, textarea {
     border-radius: 5px;
 }
 
+/* Number input styles */
+input[type="number"] {
+    width: auto;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 /* Accessibility */
 a:focus, button:focus, input:focus, textarea:focus {
     outline: 2px solid #3498db;
@@ -117,7 +127,7 @@ a:focus, button:focus, input:focus, textarea:focus {
     flex: 1;
     height: 10px;
     background-color: #ccc;
-    margin: 0 5px;
+    margin: 0 2px; /* Adjust margin to fit more steps */
     border-radius: 5px;
 }
 
@@ -205,4 +215,15 @@ a:focus, button:focus, input:focus, textarea:focus {
     margin-left: 0; /* Flytt logoen til venstre */
     margin-right: auto;
     width: 150px; /* Juster bredden etter behov */
+}
+
+/* Evaluation Chart */
+#evaluationChart {
+    margin-top: 20px;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 10px;
 }
