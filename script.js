@@ -362,7 +362,7 @@ function resetForm() {
 
 function exportToPDF() {
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+    const doc = new jsPDF('landscape');
 
     doc.setProperties({
         title: 'Prosjektrapport',
@@ -373,20 +373,20 @@ function exportToPDF() {
     });
 
     doc.setFontSize(20);
-    doc.setTextColor(40, 40, 40);
-    doc.text("Prosjektrapport", 105, 20, null, null, 'center');
+    doc.setTextColor(0, 0, 0);
+    doc.text("Prosjektrapport", 148.5, 20, null, null, 'center');
 
     doc.setLineWidth(0.5);
-    doc.line(10, 25, 200, 25);
+    doc.line(10, 25, 287, 25);
 
     const currentDate = new Date().toLocaleDateString();
     doc.setFontSize(12);
     doc.setTextColor(100, 100, 100);
     doc.text(`Dato: ${currentDate}`, 10, 30);
 
-    const addSection = (title, content, xPosition, yPosition, color) => {
+    const addSection = (title, content, xPosition, yPosition) => {
         doc.setFontSize(12);
-        doc.setTextColor(color[0], color[1], color[2]);
+        doc.setTextColor(0, 0, 0);
         doc.text(title, xPosition, yPosition);
         doc.setFontSize(10);
         doc.setTextColor(80, 80, 80);
@@ -396,44 +396,55 @@ function exportToPDF() {
     };
 
     let yPosition = 40;
-    yPosition = addSection("Prosjektets navn:", document.getElementById('prosjekt-navn').value, 10, yPosition, [52, 152, 219]);
-    yPosition = addSection("Hvor jobber dere?", document.getElementById('arbeidssted').value, 110, yPosition, [231, 76, 60]);
+    yPosition = addSection("Prosjektets navn:", document.getElementById('prosjekt-navn').value, 10, yPosition);
+    yPosition = addSection("Oppdragsgiver:", document.getElementById('arbeidssted').value, 148.5, yPosition);
 
     yPosition += 20;
-    yPosition = addSection("Behov:", document.getElementById('behov-beskrivelse').value, 10, yPosition, [46, 204, 113]);
-    yPosition = addSection("Løsning:", document.getElementById('losning-beskrivelse').value, 110, yPosition, [241, 196, 15]);
+    yPosition = addSection("Pådriver:", document.getElementById('padriver-navn').value, 10, yPosition);
+    yPosition = addSection("Team:", document.getElementById('team-medlemmer').value, 148.5, yPosition);
+    yPosition = addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, 287, yPosition);
 
     yPosition += 20;
-    yPosition = addSection("Team:", document.getElementById('team-medlemmer').value, 10, yPosition, [155, 89, 182]);
-    yPosition = addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, 110, yPosition, [52, 152, 219]);
+    yPosition = addSection("Behov:", document.getElementById('behov-beskrivelse').value, 10, yPosition);
+    yPosition = addSection("Hvor god innsikt har dere i behovet?", document.getElementById('step-14-intro-text').textContent, 148.5, yPosition);
+    yPosition = addSection("Hva bør dere vite for å få bedre innsikt i behovet?", document.getElementById('step-2-intro-text').textContent, 287, yPosition);
+
+    yPosition += 20;
+    yPosition = addSection("Løsning:", document.getElementById('losning-beskrivelse').value, 10, yPosition);
+    yPosition = addSection("Hvor langt har dere kommet med løsningen?", document.getElementById('step-15-intro-text').textContent, 148.5, yPosition);
+    yPosition = addSection("Den enkleste måten å teste en løsning på, er å spørre folk hva de mener om den. Hvilke spørsmål kan teste folks oppfatning av en tenkt løsning?", document.getElementById('step-6-intro-text').textContent, 287, yPosition);
+
+    yPosition += 20;
+    yPosition = addSection("Hvem kan gi svar på disse spørsmålene?", document.getElementById('step-3-intro-text').textContent, 10, yPosition);
+    yPosition = addSection("Ta kontakt med relevante personer oppsummering fra møtet", document.getElementById('step-4-intro-text').textContent, 148.5, yPosition);
 
     for (let i = 0; i < 22; i++) {
         const stepDescription = document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || '';
         if (stepDescription) {
-            if (yPosition + 20 > doc.internal.pageSize.height) {
+            if (yPosition + 20 > doc.internal.pageSize.height - 20) {
                 doc.addPage();
                 yPosition = 20;
             }
-            yPosition = addSection(`${wizardTexts[`step${i}`]?.title || `Steg ${i}`}:`, stepDescription, 10, yPosition, [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]);
+            yPosition = addSection(`${wizardTexts[`step${i}`]?.title || `Steg ${i}`}:`, stepDescription, 10, yPosition);
         }
     }
 
     const canvas = document.getElementById('summaryEvaluationChart');
     if (canvas) {
         const imgData = canvas.toDataURL('image/png');
-        if (yPosition + 80 > doc.internal.pageSize.height) {
+        if (yPosition + 80 > doc.internal.pageSize.height - 20) {
             doc.addPage();
             yPosition = 20;
         }
-        doc.addImage(imgData, 'PNG', 10, yPosition, 180, 80);
+        doc.addImage(imgData, 'PNG', 10, yPosition, 267, 80);
         yPosition += 80;
     }
 
-    yPosition = addSection(wizardTexts.step21.title || "Veien videre:", document.getElementById('step-21-description').value, 10, yPosition, [52, 152, 219]);
+    yPosition = addSection(wizardTexts.step21.title || "Veien videre:", document.getElementById('step-21-description').value, 10, yPosition);
 
     doc.setFontSize(10);
     doc.setTextColor(150, 150, 150);
-    doc.text("Generert av Ditt Navn", 105, 290, null, null, 'center');
+    doc.text("Generert av Ditt Navn", 148.5, doc.internal.pageSize.height - 10, null, null, 'center');
 
     doc.save('prosjektrapport.pdf');
 }
