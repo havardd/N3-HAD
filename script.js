@@ -76,8 +76,26 @@ function showSummary() {
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
             <div>
+                <h3 style="color: #e74c3c;">Pådriver</h3>
+                <p style="font-size: 1rem;">${document.getElementById('padriver-navn').value}</p>
+            </div>
+            <div>
+                <h3 style="color: #9b59b6;">Team</h3>
+                <p style="font-size: 1rem;">${document.getElementById('team-medlemmer').value}</p>
+            </div>
+            <div>
+                <h3 style="color: #3498db;">Forankring</h3>
+                <p style="font-size: 1rem;">${document.getElementById('forankring-beskrivelse').value}</p>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+            <div>
                 <h3 style="color: #2ecc71;">Behov</h3>
                 <p style="font-size: 1rem;">${document.getElementById('behov-beskrivelse').value}</p>
+            </div>
+            <div>
+                <h3 style="color: #e74c3c;">Hvor god innsikt har dere i behovet?</h3>
+                <p style="font-size: 1rem;">${document.getElementById('step-14-intro-text').textContent}</p>
             </div>
             <div>
                 <h3 style="color: #f1c40f;">Hva bør dere vite for å få bedre innsikt i behovet?</h3>
@@ -86,12 +104,36 @@ function showSummary() {
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
             <div>
-                <h3 style="color: #9b59b6;">Team</h3>
-                <p style="font-size: 1rem;">${document.getElementById('team-medlemmer').value}</p>
+                <h3 style="color: #f1c40f;">Løsning</h3>
+                <p style="font-size: 1rem;">${document.getElementById('losning-beskrivelse').value}</p>
             </div>
             <div>
-                <h3 style="color: #3498db;">Forankring</h3>
-                <p style="font-size: 1rem;">${document.getElementById('forankring-beskrivelse').value}</p>
+                <h3 style="color: #e74c3c;">Hvor langt har dere kommet med løsningen?</h3>
+                <p style="font-size: 1rem;">${document.getElementById('step-15-intro-text').textContent}</p>
+            </div>
+            <div>
+                <h3 style="color: #2ecc71;">Den enkleste måten å teste en løsning på, er å spørre folk hva de mener om den. Hvilke spørsmål kan teste folks oppfatning av en tenkt løsning?</h3>
+                <p style="font-size: 1rem;">${document.getElementById('step-6-intro-text').textContent}</p>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+            <div>
+                <h3 style="color: #e74c3c;">Hvem kan gi svar på disse spørsmålene?</h3>
+                <p style="font-size: 1rem;">${document.getElementById('step-3-intro-text').textContent}</p>
+            </div>
+            <div>
+                <h3 style="color: #2ecc71;">Ta kontakt med relevante personer oppsummering fra møtet</h3>
+                <p style="font-size: 1rem;">${document.getElementById('step-4-intro-text').textContent}</p>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+            <div>
+                <h3 style="color: #e74c3c;">Skriv inn navnene på tre personer som kan gi svar på disse tre spørsmålene?</h3>
+                <p style="font-size: 1rem;">${document.getElementById('step-7-intro-text').textContent}</p>
+            </div>
+            <div>
+                <h3 style="color: #2ecc71;">Ta kontakt med ... Forklar at dere jobber med <prosjekt navn> og ønsker å forbedre løsningen deres</h3>
+                <p style="font-size: 1rem;">${document.getElementById('step-8-intro-text').textContent}</p>
             </div>
         </div>
         ${Array.from({ length: 22 }, (_, i) => (i !== 9 && i > 0) ? `
