@@ -1,6 +1,8 @@
 let currentStep = 0;
 
-
+let evaluationChartInstance = null;
+let summaryEvaluationChartInstance = null;
+let lineChartInstance = null;
 
 function nextStep() {
     fillDefaultValues();
@@ -11,6 +13,9 @@ function nextStep() {
         showSummary();
     } else {
         document.getElementById(`step-${currentStep}`).classList.add('active');
+        if (currentStep === 21) {
+            renderEvaluationChart();
+        }
     }
     updateProgressBar();
     updateProgressBarIndicator();
@@ -59,55 +64,64 @@ function showSummary() {
     saveData();
     const summaryContent = document.getElementById('summary-content');
     summaryContent.innerHTML = `
-        <div style="display: flex; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
             <div>
-                <h1>Prosjektets navn</h1>
-                <p>${document.getElementById('prosjekt-navn').value}</p>
+                <h1 style="color: #3498db;">Prosjektets navn</h1>
+                <p style="font-size: 1.2rem;">${document.getElementById('prosjekt-navn').value}</p>
             </div>
             <div>
-                <h1>Oppdragsgiver</h1>
-                <p>${document.getElementById('arbeidssted').value}</p>
-            </div>
-        </div>
-        <div style="display: flex; justify-content: space-between;">
-            <div>
-                <h3>Behov</h3>
-                <p>${document.getElementById('behov-beskrivelse').value}</p>
-            </div>
-            <div>
-                <h3>Løsning</h3>
-                <p>${document.getElementById('losning-beskrivelse').value}</p>
+                <h1 style="color: #e74c3c;">Oppdragsgiver</h1>
+                <p style="font-size: 1.2rem;">${document.getElementById('arbeidssted').value}</p>
             </div>
         </div>
-        <div style="display: flex; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
             <div>
-                <h3>Team</h3>
-                <p>${document.getElementById('team-medlemmer').value}</p>
+                <h3 style="color: #2ecc71;">Behov</h3>
+                <p style="font-size: 1rem;">${document.getElementById('behov-beskrivelse').value}</p>
             </div>
             <div>
-                <h3>Forankring</h3>
-                <p>${document.getElementById('forankring-beskrivelse').value}</p>
+                <h3 style="color: #f1c40f;">Hva bør dere vite for å få bedre innsikt i behovet?</h3>
+                <p style="font-size: 1rem;">${document.getElementById('step-2-intro-text').textContent}</p>
             </div>
         </div>
-        ${Array.from({ length: 22 }, (_, i) => i > 0 ? `
-            <h3>${wizardTexts[`step${i}`]?.title || `Steg ${i}`}</h3>
-            <p>${document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || ''}</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+            <div>
+                <h3 style="color: #9b59b6;">Team</h3>
+                <p style="font-size: 1rem;">${document.getElementById('team-medlemmer').value}</p>
+            </div>
+            <div>
+                <h3 style="color: #3498db;">Forankring</h3>
+                <p style="font-size: 1rem;">${document.getElementById('forankring-beskrivelse').value}</p>
+            </div>
+        </div>
+        ${Array.from({ length: 22 }, (_, i) => (i !== 9 && i > 0) ? `
+            <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+                <h3 style="color: #${Math.floor(Math.random()*16777215).toString(16)};">${wizardTexts[`step${i}`]?.title || `Steg ${i}`}</h3>
+                <p style="font-size: 1rem;">${document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || ''}</p>
+            </div>
         ` : '').join('')}
-        <h3>${wizardTexts.summary.evaluationTitle || 'Evaluering'}</h3>
-        <h4>${wizardTexts.summary.evaluationChartTitle || 'Evaluering Bar Chart'}</h4>
-        <canvas id="evaluationChart" width="400" height="200"></canvas>
-        <h3>Veien videre</h3>
-        <p>${document.getElementById('step-21-description').value}</p>
+        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+            <h3 style="color: #e74c3c;">${wizardTexts.summary.evaluationTitle || 'Evaluering'}</h3>
+            <h4 style="color: #2ecc71;">${wizardTexts.summary.evaluationChartTitle || 'Evaluering Bar Chart'}</h4>
+            <canvas id="summaryEvaluationChart" width="400" height="200"></canvas>
+        </div>
+        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+            <h3 style="color: #3498db;">Veien videre</h3>
+            <p style="font-size: 1rem;">${document.getElementById('step-21-description').value}</p>
+        </div>
     `;
     document.getElementById(`step-${currentStep}`).classList.remove('active');
     currentStep = 22;
     document.getElementById('summary').classList.add('active');
     updateProgressBar();
-    setTimeout(renderEvaluationChart, 0);
+    setTimeout(renderSummaryEvaluationChart, 0);
 }
 
 function renderEvaluationChart() {
     const ctx = document.getElementById('evaluationChart').getContext('2d');
+    if (evaluationChartInstance) {
+        evaluationChartInstance.destroy();
+    }
     const data = {
         labels: ['Behov', 'Løsning', 'Pådriver', 'Team', 'Forankring'],
         datasets: [{
@@ -136,8 +150,117 @@ function renderEvaluationChart() {
             borderWidth: 1
         }]
     };
-    new Chart(ctx, {
+    evaluationChartInstance = new Chart(ctx, {
         type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 5,
+                    ticks: {
+                        stepSize: 1,
+                        callback: function(value) {
+                            if (Number.isInteger(value)) {
+                                return value;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function renderSummaryEvaluationChart() {
+    const ctx = document.getElementById('summaryEvaluationChart').getContext('2d');
+    if (summaryEvaluationChartInstance) {
+        summaryEvaluationChartInstance.destroy();
+    }
+    const data = {
+        labels: ['Behov', 'Løsning', 'Pådriver', 'Team', 'Forankring'],
+        datasets: [{
+            label: 'Evaluering',
+            data: [
+                parseInt(document.getElementById('behov-evaluation').value) || 0,
+                parseInt(document.getElementById('losning-evaluation').value) || 0,
+                parseInt(document.getElementById('padriver-evaluation').value) || 0,
+                parseInt(document.getElementById('team-evaluation').value) || 0,
+                parseInt(document.getElementById('forankring-evaluation').value) || 0
+            ],
+            backgroundColor: [
+                '#3498db', /* Blue */
+                '#e74c3c', /* Red */
+                '#2ecc71', /* Green */
+                '#f1c40f', /* Yellow */
+                '#9b59b6'  /* Purple */
+            ],
+            borderColor: [
+                '#2980b9', /* Darker Blue */
+                '#c0392b', /* Darker Red */
+                '#27ae60', /* Darker Green */
+                '#f39c12', /* Darker Yellow */
+                '#8e44ad'  /* Darker Purple */
+            ],
+            borderWidth: 1
+        }]
+    };
+    summaryEvaluationChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 5,
+                    ticks: {
+                        stepSize: 1,
+                        callback: function(value) {
+                            if (Number.isInteger(value)) {
+                                return value;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function renderLineChart() {
+    const ctx = document.getElementById('lineChart').getContext('2d');
+    if (lineChartInstance) {
+        lineChartInstance.destroy();
+    }
+    const averageEvaluation = (
+        parseInt(document.getElementById('behov-evaluation').value) +
+        parseInt(document.getElementById('losning-evaluation').value) +
+        parseInt(document.getElementById('padriver-evaluation').value) +
+        parseInt(document.getElementById('team-evaluation').value) +
+        parseInt(document.getElementById('forankring-evaluation').value)
+    ) / 5;
+
+    const data = {
+        labels: ['Dårlig', 'Under middels', 'Middels', 'God', 'Svært god'],
+        datasets: [{
+            label: 'Prosjektstatus',
+            data: [0, 0, 0, 0, 0],
+            backgroundColor: '#3498db',
+            borderColor: '#2980b9',
+            borderWidth: 1,
+            pointRadius: 5,
+            pointBackgroundColor: '#e74c3c',
+            pointBorderColor: '#c0392b',
+            pointHoverRadius: 7,
+            pointHoverBackgroundColor: '#e74c3c',
+            pointHoverBorderColor: '#c0392b'
+        }]
+    };
+
+    data.datasets[0].data[Math.round(averageEvaluation) - 1] = averageEvaluation;
+
+    lineChartInstance = new Chart(ctx, {
+        type: 'line',
         data: data,
         options: {
             scales: {
@@ -219,9 +342,9 @@ function exportToPDF() {
     doc.setTextColor(100, 100, 100);
     doc.text(`Dato: ${currentDate}`, 10, 30);
 
-    const addSection = (title, content, xPosition, yPosition) => {
+    const addSection = (title, content, xPosition, yPosition, color) => {
         doc.setFontSize(12);
-        doc.setTextColor(60, 60, 60);
+        doc.setTextColor(color[0], color[1], color[2]);
         doc.text(title, xPosition, yPosition);
         doc.setFontSize(10);
         doc.setTextColor(80, 80, 80);
@@ -231,16 +354,16 @@ function exportToPDF() {
     };
 
     let yPosition = 40;
-    yPosition = addSection("Prosjektets navn:", document.getElementById('prosjekt-navn').value, 10, yPosition);
-    yPosition = addSection("Hvor jobber dere?", document.getElementById('arbeidssted').value, 110, yPosition);
+    yPosition = addSection("Prosjektets navn:", document.getElementById('prosjekt-navn').value, 10, yPosition, [52, 152, 219]);
+    yPosition = addSection("Hvor jobber dere?", document.getElementById('arbeidssted').value, 110, yPosition, [231, 76, 60]);
 
     yPosition += 20;
-    yPosition = addSection("Behov:", document.getElementById('behov-beskrivelse').value, 10, yPosition);
-    yPosition = addSection("Løsning:", document.getElementById('losning-beskrivelse').value, 110, yPosition);
+    yPosition = addSection("Behov:", document.getElementById('behov-beskrivelse').value, 10, yPosition, [46, 204, 113]);
+    yPosition = addSection("Løsning:", document.getElementById('losning-beskrivelse').value, 110, yPosition, [241, 196, 15]);
 
     yPosition += 20;
-    yPosition = addSection("Team:", document.getElementById('team-medlemmer').value, 10, yPosition);
-    yPosition = addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, 110, yPosition);
+    yPosition = addSection("Team:", document.getElementById('team-medlemmer').value, 10, yPosition, [155, 89, 182]);
+    yPosition = addSection("Forankring:", document.getElementById('forankring-beskrivelse').value, 110, yPosition, [52, 152, 219]);
 
     for (let i = 0; i < 22; i++) {
         const stepDescription = document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || '';
@@ -249,11 +372,11 @@ function exportToPDF() {
                 doc.addPage();
                 yPosition = 20;
             }
-            yPosition = addSection(`${wizardTexts[`step${i}`]?.title || `Steg ${i}`}:`, stepDescription, 10, yPosition);
+            yPosition = addSection(`${wizardTexts[`step${i}`]?.title || `Steg ${i}`}:`, stepDescription, 10, yPosition, [Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)]);
         }
     }
 
-    const canvas = document.getElementById('evaluationChart');
+    const canvas = document.getElementById('summaryEvaluationChart');
     if (canvas) {
         const imgData = canvas.toDataURL('image/png');
         if (yPosition + 80 > doc.internal.pageSize.height) {
@@ -264,7 +387,7 @@ function exportToPDF() {
         yPosition += 80;
     }
 
-    yPosition = addSection(wizardTexts.step21.title || "Veien videre:", document.getElementById('step-21-description').value, 10, yPosition);
+    yPosition = addSection(wizardTexts.step21.title || "Veien videre:", document.getElementById('step-21-description').value, 10, yPosition, [52, 152, 219]);
 
     doc.setFontSize(10);
     doc.setTextColor(150, 150, 150);
@@ -364,7 +487,7 @@ function updateProgressBarIndicator() {
     if (progressIndicator) {
         progressIndicator.textContent = `Steg ${currentStep + 1}`;
     } else {
-        console.error('Element with ID "progress-indicator" not found');
+        console.warn('Element with ID "progress-indicator" not found');
     }
 }
 
@@ -386,6 +509,9 @@ document.addEventListener('DOMContentLoaded', () => {
     script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
     script.onload = () => {
         if (currentStep === 22) {
+            renderSummaryEvaluationChart();
+        }
+        if (currentStep === 21) {
             renderEvaluationChart();
         }
     };

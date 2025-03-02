@@ -126,7 +126,14 @@ const wizardTexts = {
         title: "Mulighet for å lykkes",
         text: "Jobb mer med de fem fundamentene for å øke sannsynlighreten for å lykkes med prosjektet",
         description: "Beskriv",
-        introText: "..."
+        introText: "...",
+        lineChartDescriptions: [
+            "Prosjektet har store utfordringer og trenger betydelig forbedring.",
+            "Prosjektet har noen utfordringer som må adresseres.",
+            "Prosjektet er på et middels nivå og har potensial for forbedring.",
+            "Prosjektet fungerer godt, men det er fortsatt rom for forbedring.",
+            "Prosjektet fungerer svært godt og har høy sannsynlighet for å lykkes."
+        ]
     },
     step22: {
         title: "Nå har vi vært igjennom Behov, Løsning, Pådriver, Team og Forankring. For å lykkes må man ofte gå mange runder med Behov, Løsning og Testing. Hva er det dere vil gjøre?Veien videre",
