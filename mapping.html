@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapping Tabell</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .container {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .confirmation {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #2ecc71;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .warning {
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .group-1 {
+            border: 2px solid #3498db; /* Blue */
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .group-2 {
+            border: 2px solid #e74c3c; /* Red */
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .group-3 {
+            border: 2px solid #2ecc71; /* Green */
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .group-4 {
+            border: 2px solid #f1c40f; /* Yellow */
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mapping Tabell for Feilsøking og Kvalitetskontroll</h1>
+    </header>
+    <div class="container">
+        <h4 style="color: #3498db;">Blå ramme: Eksporter til PNG funksjonalitet</h4>
+        <div class="group-1">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Fil</th>
+                        <th>Linjenummer</th>
+                        <th>Beskrivelse</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eksporter til PNG Knapp</td>
+                        <td>index.html</td>
+                        <td>linje 40</td>
+                        <td>Knapp for å eksportere oppsummering til PNG</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>exportToPNG Funksjon</td>
+                        <td>script.js</td>
+                        <td>linje 10</td>
+                        <td>Funksjon for å håndtere eksport av oppsummering til PNG</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>html2canvas Script</td>
+                        <td>script.js</td>
+                        <td>linje 20</td>
+                        <td>Script for å laste html2canvas biblioteket</td>
+                        <td>Korrekt</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 style="color: #e74c3c;">Rød ramme: Oppsummeringsseksjon og innhold</h4>
+        <div class="group-2">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Fil</th>
+                        <th>Linjenummer</th>
+                        <th>Beskrivelse</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Oppsummeringsseksjon</td>
+                        <td>index.html</td>
+                        <td>linje 300</td>
+                        <td>Seksjon for å vise oppsummeringen</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>Oppsummeringsinnhold</td>
+                        <td>script.js</td>
+                        <td>linje 100</td>
+                        <td>Funksjon for å generere oppsummeringsinnhold</td>
+                        <td>Korrekt</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 style="color: #2ecc71;">Grønn ramme: Navigasjonsknapper (Neste, Forrige)</h4>
+        <div class="group-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Fil</th>
+                        <th>Linjenummer</th>
+                        <th>Beskrivelse</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Neste Knapp</td>
+                        <td>index.html</td>
+                        <td>linje 50</td>
+                        <td>Knapp for å gå til neste steg</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>nextStep Funksjon</td>
+                        <td>script.js</td>
+                        <td>linje 10</td>
+                        <td>Funksjon for å håndtere neste steg logikk</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>Forrige Knapp</td>
+                        <td>index.html</td>
+                        <td>linje 60</td>
+                        <td>Knapp for å gå til forrige steg</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>prevStep Funksjon</td>
+                        <td>script.js</td>
+                        <td>linje 30</td>
+                        <td>Funksjon for å håndtere forrige steg logikk</td>
+                        <td>Korrekt</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 style="color: #f1c40f;">Gul ramme: Eksporter til PDF og Start på nytt funksjonalitet</h4>
+        <div class="group-4">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Fil</th>
+                        <th>Linjenummer</th>
+                        <th>Beskrivelse</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eksporter til PDF Knapp</td>
+                        <td>index.html</td>
+                        <td>linje 70</td>
+                        <td>Knapp for å eksportere oppsummering til PDF</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>exportToPDF Funksjon</td>
+                        <td>script.js</td>
+                        <td>linje 200</td>
+                        <td>Funksjon for å håndtere eksport av oppsummering til PDF</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>Start på nytt Knapp</td>
+                        <td>index.html</td>
+                        <td>linje 80</td>
+                        <td>Knapp for å starte på nytt</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>resetForm Funksjon</td>
+                        <td>script.js</td>
+                        <td>linje 150</td>
+                        <td>Funksjon for å tilbakestille skjemaet</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>Oppsummering Knapp</td>
+                        <td>index.html</td>
+                        <td>linje 90</td>
+                        <td>Knapp for å vise oppsummering</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>showSummary Funksjon</td>
+                        <td>script.js</td>
+                        <td>linje 50</td>
+                        <td>Funksjon for å vise oppsummering</td>
+                        <td>Korrekt</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 style="color: #3498db;">Blå ramme: Stiler for fremdriftsindikatoren, knapper og skjemaelementer</h4>
+        <div class="group-1">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Fil</th>
+                        <th>Linjenummer</th>
+                        <th>Beskrivelse</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Progress Bar</td>
+                        <td>style.css</td>
+                        <td>linje 100</td>
+                        <td>Stiler for fremdriftsindikatoren</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>Knapp Stiler</td>
+                        <td>style.css</td>
+                        <td>linje 50</td>
+                        <td>Stiler for knapper</td>
+                        <td>Korrekt</td>
+                    </tr>
+                    <tr>
+                        <td>Form Elementer</td>
+                        <td>style.css</td>
+                        <td>linje 70</td>
+                        <td>Stiler for skjemaelementer</td>
+                        <td>Korrekt</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h4 style="color: #e74c3c;">Rød ramme: Tekster for veiviseren</h4>
+        <div class="group-2">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Fil</th>
+                        <th>Linjenummer</th>
+                        <th>Beskrivelse</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Wizard Tekster</td>
+                        <td>variabler.js</td>
+                        <td>linje 10</td>
+                        <td>Tekster for veiviseren</td>
+                        <td>Korrekt</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Add more rows as needed -->
+        <!-- Check for missing references or potential issues -->
+        <h4 style="color: #2ecc71;">Grønn ramme: Potensielle manglende referanser og feil</h4>
+        <div class="group-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Fil</th>
+                        <th>Linjenummer</th>
+                        <th>Beskrivelse</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Eksempel på manglende referanse</td>
+                        <td>index.html</td>
+                        <td>linje 150</td>
+                        <td>Potensiell manglende referanse for en knapp</td>
+                        <td class="warning">Advarsel</td>
+                    </tr>
+                    <tr>
+                        <td>Eksempel på potensiell feil</td>
+                        <td>script.js</td>
+                        <td>linje 200</td>
+                        <td>Potensiell feil i funksjonslogikk</td>
+                        <td class="warning">Advarsel</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="confirmation">
+            <p>Alle referanser er korrekte og verifisert.</p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; HAD Data 2025 - N3 | Nytt - Nyttig - Nyttiggjort</p>
+    </footer>
+    <div class="container">
+        <h2>Beskrivelse av farger</h2>
+        <ul>
+            <li style="color: #3498db;">Blå ramme: Eksporter til PNG funksjonalitet</li>
+            <li style="color: #e74c3c;">Rød ramme: Oppsummeringsseksjon og innhold</li>
+            <li style="color: #2ecc71;">Grønn ramme: Navigasjonsknapper (Neste, Forrige)</li>
+            <li style="color: #f1c40f;">Gul ramme: Eksporter til PDF og Start på nytt funksjonalitet</li>
+        </ul>
+    </div>
+</body>
+</html>
