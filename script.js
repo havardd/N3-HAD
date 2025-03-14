@@ -449,6 +449,16 @@ function exportToPDF() {
     doc.save('prosjektrapport.pdf');
 }
 
+function exportToPNG() {
+    const summaryElement = document.getElementById('summary');
+    html2canvas(summaryElement).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'prosjektrapport.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    });
+}
+
 function setWizardTexts() {
     document.getElementById('step-0-text').textContent = wizardTexts.step0.text;
     document.getElementById('step-1-title').textContent = wizardTexts.step1.title;
@@ -569,4 +579,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     document.head.appendChild(script);
+
+    const html2canvasScript = document.createElement('script');
+    html2canvasScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    document.head.appendChild(html2canvasScript);
 });
