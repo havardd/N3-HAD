@@ -148,5 +148,15 @@ const wizardTexts = {
         resetButton: "Start på nytt",
         evaluationTitle: "Evaluering",
         evaluationChartTitle: "Deres vurdering av de 5 fundamentene",
+        toggleContent: {
+            showProsjektNavn: true,
+            showOppdragsgiver: true,
+            showPadriver: true,
+            showTeam: true,
+            showBehov:true,
+            showLosning: true,
+            showForankring: true,
+            showEvaluationChart: true
+        }
     }
 };

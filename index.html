@@ -138,7 +138,7 @@
                 <button type="button" id="step-4-summary" onclick="showSummary()">Oppsummering</button>
                 <div class="progress-bar">
                     <div class="active"></div>
-                    <div class="active"></div>
+                    <div "active"></div>
                     <div class="active"></div>
                     <div class="active"></div>
                     <div></div>
@@ -502,10 +502,6 @@
                 <button type="button" id="step-21-summary" onclick="showSummary()">Oppsummering</button>
                 <div class="progress-bar">
                     <div class="active"></div>
-                    <div class="active"></div>
-                    <div class="active"></div>
-                    <div class="active"></div>
-                    <div class="active"></div>
                 </div>
                 <div style="margin-top: 20px;">
                     <h3 style="color: #3498db;">Prosjektstatus</h3>
@@ -514,12 +510,31 @@
             </div>
             <!-- Summary -->
             <div class="step" id="summary">
-                <h2 id="summary-title"></h2>
                 <button type="button" id="summary-prev-button" onclick="prevStep()">Forrige</button>
                 <button type="button" id="summary-export-button" onclick="exportToPDF()">Eksporter til PDF</button>
                 <button type="button" id="summary-export-png-button" onclick="exportToPNG()">Eksporter til PNG</button>
                 <button type="button" id="summary-reset-button" onclick="resetForm()">Start på nytt</button>
+                <button type="button" id="build-report-button">Bygg din egen rapport</button>
+                <h2 contenteditable="true" id="report-title">Rapport</h2>
+                <p contenteditable="true" id="report-date">${new Date().toLocaleDateString()}</p>
                 <div id="summary-content"></div>
+                <div id="grid-container"></div>
+                <div id="customize-grid-menu">
+                    <label for="rows">Rader:</label>
+                    <input type="number" id="rows" name="rows" value="3" min="1">
+                    <label for="cols">Kolonner:</label>
+                    <input type="number" id="cols" name="cols" value="3" min="1">
+                    <label for="numGrids">Antall grider:</label>
+                    <input type="number" id="numGrids" name="numGrids" value="1" min="1"> <!-- Change default to 1 -->
+                    <button type="button" onclick="updateGrid()">Oppdater grid</button>
+                </div>
+                <div id="new-chapter-menu">
+                    <label for="new-rows">Rader:</label>
+                    <input type="number" id="new-rows" name="new-rows" value="3" min="1">
+                    <label for="new-cols">Kolonner:</label>
+                    <input type="number" id="new-cols" name="new-cols" value="3" min="1">
+                    <button type="button" id="add-chapter-button">Legg til nytt kapittel</button>
+                </div>
             </div>
         </div>
     </div>

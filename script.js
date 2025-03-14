@@ -63,210 +63,229 @@ function showSummary() {
     fillDefaultValues();
     saveData();
     const summaryContent = document.getElementById('summary-content');
-    summaryContent.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-            <div>
-                <h1 style="color: #3498db;">Prosjektets navn</h1>
-                <p style="font-size: 1.2rem;">${document.getElementById('prosjekt-navn').value}</p>
-            </div>
-            <div>
-                <h1 style="color: #e74c3c;">Oppdragsgiver</h1>
-                <p style="font-size: 1.2rem;">${document.getElementById('arbeidssted').value}</p>
-            </div>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
-            <div>
-                <h3 style="color: #e74c3c;">Pådriver</h3>
-                <p style="font-size: 1rem;">${document.getElementById('padriver-navn').value}</p>
-            </div>
-            <div>
-                <h3 style="color: #9b59b6;">Team</h3>
-                <p style="font-size: 1rem;">${document.getElementById('team-medlemmer').value}</p>
-            </div>
-            <div>
-                <h3 style="color: #3498db;">Forankring</h3>
-                <p style="font-size: 1rem;">${document.getElementById('forankring-beskrivelse').value}</p>
-            </div>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
-            <div>
-                <h3 style="color: #2ecc71;">Behov</h3>
-                <p style="font-size: 1rem;">${document.getElementById('behov-beskrivelse').value}</p>
-            </div>
-            <div>
-                <h3 style="color: #e74c3c;">Hvor god innsikt har dere i behovet?</h3>
-                <p style="font-size: 1rem;">${document.getElementById('step-14-intro-text').textContent}</p>
-            </div>
-            <div>
-                <h3 style="color: #f1c40f;">Hva bør dere vite for å få bedre innsikt i behovet?</h3>
-                <p style="font-size: 1rem;">${document.getElementById('step-2-intro-text').textContent}</p>
-            </div>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
-            <div>
-                <h3 style="color: #f1c40f;">Løsning</h3>
-                <p style="font-size: 1rem;">${document.getElementById('losning-beskrivelse').value}</p>
-            </div>
-            <div>
-                <h3 style="color: #e74c3c;">Hvor langt har dere kommet med løsningen?</h3>
-                <p style="font-size: 1rem;">${document.getElementById('step-15-intro-text').textContent}</p>
-            </div>
-            <div>
-                <h3 style="color: #2ecc71;">Den enkleste måten å teste en løsning på, er å spørre folk hva de mener om den. Hvilke spørsmål kan teste folks oppfatning av en tenkt løsning?</h3>
-                <p style="font-size: 1rem;">${document.getElementById('step-6-intro-text').textContent}</p>
-            </div>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
-            <div>
-                <h3 style="color: #e74c3c;">Hvem kan gi svar på disse spørsmålene?</h3>
-                <p style="font-size: 1rem;">${document.getElementById('step-3-intro-text').textContent}</p>
-            </div>
-            <div>
-                <h3 style="color: #2ecc71;">Ta kontakt med relevante personer oppsummering fra møtet</h3>
-                <p style="font-size: 1rem;">${document.getElementById('step-4-intro-text').textContent}</p>
-            </div>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
-            <div>
-                <h3 style="color: #e74c3c;">Skriv inn navnene på tre personer som kan gi svar på disse tre spørsmålene?</h3>
-                <p style="font-size: 1rem;">${document.getElementById('step-7-intro-text').textContent}</p>
-            </div>
-            <div>
-                <h3 style="color: #2ecc71;">Ta kontakt med ... Forklar at dere jobber med <prosjekt navn> og ønsker å forbedre løsningen deres</h3>
-                <p style="font-size: 1rem;">${document.getElementById('step-8-intro-text').textContent}</p>
-            </div>
-        </div>
-        ${Array.from({ length: 22 }, (_, i) => (i !== 9 && i > 0) ? `
-            <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
-                <h3 style="color: #${Math.floor(Math.random()*16777215).toString(16)};">${wizardTexts[`step${i}`]?.title || `Steg ${i}`}</h3>
-                <p style="font-size: 1rem;">${document.getElementById(`step-${i}-description`)?.value || wizardTexts[`step${i}`]?.introText || ''}</p>
-            </div>
-        ` : '').join('')}
-        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
-            <h3 style="color: #e74c3c;">${wizardTexts.summary.evaluationTitle || 'Evaluering'}</h3>
-            <h4 style="color: #2ecc71;">${wizardTexts.summary.evaluationChartTitle || 'Evaluering Bar Chart'}</h4>
-            <canvas id="summaryEvaluationChart" width="400" height="200"></canvas>
-        </div>
-        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
-            <h3 style="color: #3498db;">Veien videre</h3>
-            <p style="font-size: 1rem;">${document.getElementById('step-21-description').value}</p>
-        </div>
-    `;
+    summaryContent.innerHTML = '';
+
+    if (wizardTexts.summary.toggleContent.showProsjektNavn) {
+        summaryContent.innerHTML += `
+            <div class="draggable" draggable="true">
+                <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                    <div>
+                        <h1 contenteditable="true" style="color: #3498db;">Prosjektets navn</h1>
+                        <p contenteditable="true" style="font-size: 1.2rem;">${document.getElementById('prosjekt-navn').value}</p>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    if (wizardTexts.summary.toggleContent.showOppdragsgiver) {
+        summaryContent.innerHTML += `
+            <div class="draggable" draggable="true">
+                <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+                    <div>
+                        <h1 contenteditable="true" style="color: #e74c3c;">Oppdragsgiver</h1>
+                        <p contenteditable="true" style="font-size: 1.2rem;">${document.getElementById('arbeidssted').value}</p>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    if (wizardTexts.summary.toggleContent.showPadriver) {
+        summaryContent.innerHTML += `
+            <div class="draggable" draggable="true">
+                <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+                    <div>
+                        <h3 contenteditable="true" style="color: #e74c3c;">Pådriver</h3>
+                        <p contenteditable="true" style="font-size: 1rem;">${document.getElementById('padriver-navn').value}</p>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    if (wizardTexts.summary.toggleContent.showTeam) {
+        summaryContent.innerHTML += `
+            <div class="draggable" draggable="true">
+                <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+                    <div>
+                        <h3 contenteditable="true" style="color: #9b59b6;">Team</h3>
+                        <p contenteditable="true" style="font-size: 1rem;">${document.getElementById('team-medlemmer').value}</p>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    if (wizardTexts.summary.toggleContent.showBehov) {
+        summaryContent.innerHTML += ` 
+            <div class="draggable" draggable="true">
+                <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+                    <div>
+                        <h3 contenteditable="true" style="color: #2ecc71;">Behov</h3>
+                        <p contenteditable="true" style="font-size: 1rem;">${document.getElementById('behov-beskrivelse').value}</p>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    if (wizardTexts.summary.toggleContent.showLosning) {
+        summaryContent.innerHTML += `
+            <div class="draggable" draggable="true">
+                <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+                    <div>
+                        <h3 contenteditable="true" style="color: #f1c40f;">Løsning</h3>
+                        <p contenteditable="true" style="font-size: 1rem;">${document.getElementById('losning-beskrivelse').value}</p>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    if (wizardTexts.summary.toggleContent.showForankring) {
+        summaryContent.innerHTML += `
+            <div class="draggable" draggable="true">
+                <div style="display: flex; justify-content: space-between; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+                    <div>
+                        <h3 contenteditable="true" style="color: #3498db;">Forankring</h3>
+                        <p contenteditable="true" style="font-size: 1rem;">${document.getElementById('forankring-beskrivelse').value}</p>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    if (wizardTexts.summary.toggleContent.showEvaluationChart) {
+        summaryContent.innerHTML += `
+            <div class="draggable" draggable="true">
+                <div style="display: flex; justify-content: center; align-items: center; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 20px;">
+                    <canvas id="summaryEvaluationChart" width="400" height="200"></canvas>
+                </div>
+            </div>`;
+    }
+
+    // ...existing code for other sections...
+
     document.getElementById(`step-${currentStep}`).classList.remove('active');
     currentStep = 22;
     document.getElementById('summary').classList.add('active');
     updateProgressBar();
-    setTimeout(renderSummaryEvaluationChart, 0);
+    setTimeout(() => {
+        createGrids();
+        renderSummaryEvaluationChart();
+    }, 0);
 }
 
 function renderEvaluationChart() {
-    const ctx = document.getElementById('evaluationChart').getContext('2d');
-    if (evaluationChartInstance) {
-        evaluationChartInstance.destroy();
-    }
-    const data = {
-        labels: ['Behov', 'Løsning', 'Pådriver', 'Team', 'Forankring'],
-        datasets: [{
-            label: 'Evaluering',
-            data: [
-                parseInt(document.getElementById('behov-evaluation').value) || 0,
-                parseInt(document.getElementById('losning-evaluation').value) || 0,
-                parseInt(document.getElementById('padriver-evaluation').value) || 0,
-                parseInt(document.getElementById('team-evaluation').value) || 0,
-                parseInt(document.getElementById('forankring-evaluation').value) || 0
-            ],
-            backgroundColor: [
-                '#3498db', /* Blue */
-                '#e74c3c', /* Red */
-                '#2ecc71', /* Green */
-                '#f1c40f', /* Yellow */
-                '#9b59b6'  /* Purple */
-            ],
-            borderColor: [
-                '#2980b9', /* Darker Blue */
-                '#c0392b', /* Darker Red */
-                '#27ae60', /* Darker Green */
-                '#f39c12', /* Darker Yellow */
-                '#8e44ad'  /* Darker Purple */
-            ],
-            borderWidth: 1
-        }]
-    };
-    evaluationChartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: data,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 5,
-                    ticks: {
-                        stepSize: 1,
-                        callback: function(value) {
-                            if (Number.isInteger(value)) {
-                                return value;
+    if (typeof Chart !== 'undefined') {
+        const ctx = document.getElementById('evaluationChart').getContext('2d');
+        if (evaluationChartInstance) {
+            evaluationChartInstance.destroy();
+        }
+        const data = {
+            labels: ['Behov', 'Løsning', 'Pådriver', 'Team', 'Forankring'],
+            datasets: [{
+                label: 'Evaluering',
+                data: [
+                    parseInt(document.getElementById('behov-evaluation').value) || 0,
+                    parseInt(document.getElementById('losning-evaluation').value) || 0,
+                    parseInt(document.getElementById('padriver-evaluation').value) || 0,
+                    parseInt(document.getElementById('team-evaluation').value) || 0,
+                    parseInt(document.getElementById('forankring-evaluation').value) || 0
+                ],
+                backgroundColor: [
+                    '#3498db', /* Blue */
+                    '#e74c3c', /* Red */
+                    '#2ecc71', /* Green */
+                    '#f1c40f', /* Yellow */
+                    '#9b59b6'  /* Purple */
+                ],
+                borderColor: [
+                    '#2980b9', /* Darker Blue */
+                    '#c0392b', /* Darker Red */
+                    '#27ae60', /* Darker Green */
+                    '#f39c12', /* Darker Yellow */
+                    '#8e44ad'  /* Darker Purple */
+                ],
+                borderWidth: 1
+            }]
+        };
+        evaluationChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 5,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                if (Number.isInteger(value)) {
+                                    return value;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-    });
+        });
+    } else {
+        console.error('Chart.js is not loaded.');
+    }
 }
 
 function renderSummaryEvaluationChart() {
-    const ctx = document.getElementById('summaryEvaluationChart').getContext('2d');
-    if (summaryEvaluationChartInstance) {
-        summaryEvaluationChartInstance.destroy();
-    }
-    const data = {
-        labels: ['Behov', 'Løsning', 'Pådriver', 'Team', 'Forankring'],
-        datasets: [{
-            label: 'Evaluering',
-            data: [
-                parseInt(document.getElementById('behov-evaluation').value) || 0,
-                parseInt(document.getElementById('losning-evaluation').value) || 0,
-                parseInt(document.getElementById('padriver-evaluation').value) || 0,
-                parseInt(document.getElementById('team-evaluation').value) || 0,
-                parseInt(document.getElementById('forankring-evaluation').value) || 0
-            ],
-            backgroundColor: [
-                '#3498db', /* Blue */
-                '#e74c3c', /* Red */
-                '#2ecc71', /* Green */
-                '#f1c40f', /* Yellow */
-                '#9b59b6'  /* Purple */
-            ],
-            borderColor: [
-                '#2980b9', /* Darker Blue */
-                '#c0392b', /* Darker Red */
-                '#27ae60', /* Darker Green */
-                '#f39c12', /* Darker Yellow */
-                '#8e44ad'  /* Darker Purple */
-            ],
-            borderWidth: 1
-        }]
-    };
-    summaryEvaluationChartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: data,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 5,
-                    ticks: {
-                        stepSize: 1,
-                        callback: function(value) {
-                            if (Number.isInteger(value)) {
-                                return value;
+    if (typeof Chart !== 'undefined') {
+        const ctx = document.getElementById('summaryEvaluationChart').getContext('2d');
+        if (summaryEvaluationChartInstance) {
+            summaryEvaluationChartInstance.destroy();
+        }
+        const data = {
+            labels: ['Behov', 'Løsning', 'Pådriver', 'Team', 'Forankring'],
+            datasets: [{
+                label: 'Evaluering',
+                data: [
+                    parseInt(document.getElementById('behov-evaluation').value) || 0,
+                    parseInt(document.getElementById('losning-evaluation').value) || 0,
+                    parseInt(document.getElementById('padriver-evaluation').value) || 0,
+                    parseInt(document.getElementById('team-evaluation').value) || 0,
+                    parseInt(document.getElementById('forankring-evaluation').value) || 0
+                ],
+                backgroundColor: [
+                    '#3498db', /* Blue */
+                    '#e74c3c', /* Red */
+                    '#2ecc71', /* Green */
+                    '#f1c40f', /* Yellow */
+                    '#9b59b6'  /* Purple */
+                ],
+                borderColor: [
+                    '#2980b9', /* Darker Blue */
+                    '#c0392b', /* Darker Red */
+                    '#27ae60', /* Darker Green */
+                    '#f39c12', /* Darker Yellow */
+                    '#8e44ad'  /* Darker Purple */
+                ],
+                borderWidth: 1
+            }]
+        };
+        summaryEvaluationChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 5,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                if (Number.isInteger(value)) {
+                                    return value;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-    });
+        });
+    } else {
+        console.error('Chart.js is not loaded.');
+    }
 }
 
 function renderLineChart() {
@@ -450,84 +469,136 @@ function exportToPDF() {
 }
 
 function exportToPNG() {
-    const summaryElement = document.getElementById('summary');
-    html2canvas(summaryElement).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'prosjektrapport.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-    });
+    if (typeof html2canvas !== 'undefined') {
+        const summaryElement = document.getElementById('summary');
+        html2canvas(summaryElement, { scale: 2 }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'prosjektrapport.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }).catch(error => {
+            console.error('Error exporting to PNG:', error);
+        });
+    } else {
+        console.error('html2canvas is not loaded.');
+    }
 }
 
 function setWizardTexts() {
-    document.getElementById('step-0-text').textContent = wizardTexts.step0.text;
-    document.getElementById('step-1-title').textContent = wizardTexts.step1.title;
-    document.getElementById('step-1-description').textContent = wizardTexts.step1.description;
-    document.getElementById('step-1-intro-text').textContent = wizardTexts.step1.introText;
-    document.getElementById('step-2-title').textContent = wizardTexts.step2.title;
-    document.getElementById('step-2-description').textContent = wizardTexts.step2.description;
-    document.getElementById('step-2-intro-text').textContent = wizardTexts.step2.introText;
-    document.getElementById('step-3-title').textContent = wizardTexts.step3.title;
-    document.getElementById('step-3-description').textContent = wizardTexts.step3.description;
-    document.getElementById('step-3-intro-text').textContent = wizardTexts.step3.introText;
-    document.getElementById('step-4-title').textContent = wizardTexts.step4.title;
-    document.getElementById('step-4-description').textContent = wizardTexts.step4.description;
-    document.getElementById('step-4-intro-text').textContent = wizardTexts.step4.introText;
-    document.getElementById('step-5-title').textContent = wizardTexts.step5.title;
-    document.getElementById('step-5-description').textContent = wizardTexts.step5.description;
-    document.getElementById('step-5-intro-text').textContent = wizardTexts.step5.introText;
-    document.getElementById('step-6-title').textContent = wizardTexts.step6.title;
-    document.getElementById('step-6-description').textContent = wizardTexts.step6.description;
-    document.getElementById('step-6-intro-text').textContent = wizardTexts.step6.introText;
-    document.getElementById('step-7-title').textContent = wizardTexts.step7.title;
-    document.getElementById('step-7-description').textContent = wizardTexts.step7.description;
-    document.getElementById('step-7-intro-text').textContent = wizardTexts.step7.introText;
-    document.getElementById('step-8-title').textContent = wizardTexts.step8.title;
-    document.getElementById('step-8-description').textContent = wizardTexts.step8.description;
-    document.getElementById('step-8-intro-text').textContent = wizardTexts.step8.introText;
-    document.getElementById('step-9-title').textContent = wizardTexts.step9.title;
-    document.getElementById('step-9-description').textContent = wizardTexts.step9.description;
-    document.getElementById('step-9-intro-text').textContent = wizardTexts.step9.introText;
-    document.getElementById('step-10-title').textContent = wizardTexts.step10.title;
-    document.getElementById('step-10-description').textContent = wizardTexts.step10.description;
-    document.getElementById('step-10-intro-text').textContent = wizardTexts.step10.introText;
-    document.getElementById('step-11-title').textContent = wizardTexts.step11.title;
-    document.getElementById('step-11-description').textContent = wizardTexts.step11.description;
-    document.getElementById('step-11-intro-text').textContent = wizardTexts.step11.introText;
-    document.getElementById('step-12-title').textContent = wizardTexts.step12.title;
-    document.getElementById('step-12-description').textContent = wizardTexts.step12.description;
-    document.getElementById('step-12-intro-text').textContent = wizardTexts.step12.introText;
-    document.getElementById('step-13-title').textContent = wizardTexts.step13.title;
-    document.getElementById('step-13-description').textContent = wizardTexts.step13.description;
-    document.getElementById('step-13-intro-text').textContent = wizardTexts.step13.introText;
-    document.getElementById('step-14-title').textContent = wizardTexts.step14.title;
-    document.getElementById('step-14-description').textContent = wizardTexts.step14.description;
-    document.getElementById('step-14-intro-text').textContent = wizardTexts.step14.introText;
-    document.getElementById('step-15-title').textContent = wizardTexts.step15.title;
-    document.getElementById('step-15-description').textContent = wizardTexts.step15.description;
-    document.getElementById('step-15-intro-text').textContent = wizardTexts.step15.introText;
-    document.getElementById('step-16-title').textContent = wizardTexts.step16.title;
-    document.getElementById('step-16-description').textContent = wizardTexts.step16.description;
-    document.getElementById('step-16-intro-text').textContent = wizardTexts.step16.introText;
-    document.getElementById('step-17-title').textContent = wizardTexts.step17.title;
-    document.getElementById('step-17-description').textContent = wizardTexts.step17.description;
-    document.getElementById('step-17-intro-text').textContent = wizardTexts.step17.introText;
-    document.getElementById('step-18-title').textContent = wizardTexts.step18.title;
-    document.getElementById('step-18-description').textContent = wizardTexts.step18.description;
-    document.getElementById('step-18-intro-text').textContent = wizardTexts.step18.introText;
-    document.getElementById('step-19-title').textContent = wizardTexts.step19.title;
-    document.getElementById('step-19-description').textContent = wizardTexts.step19.description;
-    document.getElementById('step-19-intro-text').textContent = wizardTexts.step19.introText;
-    document.getElementById('step-20-title').textContent = wizardTexts.step20.title;
-    document.getElementById('step-20-description').textContent = wizardTexts.step20.description;
-    document.getElementById('step-20-intro-text').textContent = wizardTexts.step20.introText;
-    document.getElementById('step-21-title').textContent = wizardTexts.step21.title;
-    document.getElementById('step-21-description').textContent = wizardTexts.step21.description;
-    document.getElementById('step-21-intro-text').textContent = wizardTexts.step21.introText;
-    document.getElementById('summary-title').textContent = wizardTexts.summary.title;
-    document.getElementById('summary-prev-button').textContent = wizardTexts.summary.prevButton;
-    document.getElementById('summary-export-button').textContent = wizardTexts.summary.exportButton;
-    document.getElementById('summary-reset-button').textContent = wizardTexts.summary.resetButton;
+    if (wizardTexts.step0 && document.getElementById('step-0-text')) {
+        document.getElementById('step-0-text').textContent = wizardTexts.step0.text;
+    }
+    if (wizardTexts.step1 && document.getElementById('step-1-title')) {
+        document.getElementById('step-1-title').textContent = wizardTexts.step1.title;
+        document.getElementById('step-1-description').textContent = wizardTexts.step1.description;
+        document.getElementById('step-1-intro-text').textContent = wizardTexts.step1.introText;
+    }
+    if (wizardTexts.step2 && document.getElementById('step-2-title')) {
+        document.getElementById('step-2-title').textContent = wizardTexts.step2.title;
+        document.getElementById('step-2-description').textContent = wizardTexts.step2.description;
+        document.getElementById('step-2-intro-text').textContent = wizardTexts.step2.introText;
+    }
+    if (wizardTexts.step3 && document.getElementById('step-3-title')) {
+        document.getElementById('step-3-title').textContent = wizardTexts.step3.title;
+        document.getElementById('step-3-description').textContent = wizardTexts.step3.description;
+        document.getElementById('step-3-intro-text').textContent = wizardTexts.step3.introText;
+    }
+    if (wizardTexts.step4 && document.getElementById('step-4-title')) {
+        document.getElementById('step-4-title').textContent = wizardTexts.step4.title;
+        document.getElementById('step-4-description').textContent = wizardTexts.step4.description;
+        document.getElementById('step-4-intro-text').textContent = wizardTexts.step4.introText;
+    }
+    if (wizardTexts.step5 && document.getElementById('step-5-title')) {
+        document.getElementById('step-5-title').textContent = wizardTexts.step5.title;
+        document.getElementById('step-5-description').textContent = wizardTexts.step5.description;
+        document.getElementById('step-5-intro-text').textContent = wizardTexts.step5.introText;
+    }
+    if (wizardTexts.step6 && document.getElementById('step-6-title')) {
+        document.getElementById('step-6-title').textContent = wizardTexts.step6.title;
+        document.getElementById('step-6-description').textContent = wizardTexts.step6.description;
+        document.getElementById('step-6-intro-text').textContent = wizardTexts.step6.introText;
+    }
+    if (wizardTexts.step7 && document.getElementById('step-7-title')) {
+        document.getElementById('step-7-title').textContent = wizardTexts.step7.title;
+        document.getElementById('step-7-description').textContent = wizardTexts.step7.description;
+        document.getElementById('step-7-intro-text').textContent = wizardTexts.step7.introText;
+    }
+    if (wizardTexts.step8 && document.getElementById('step-8-title')) {
+        document.getElementById('step-8-title').textContent = wizardTexts.step8.title;
+        document.getElementById('step-8-description').textContent = wizardTexts.step8.description;
+        document.getElementById('step-8-intro-text').textContent = wizardTexts.step8.introText;
+    }
+    if (wizardTexts.step9 && document.getElementById('step-9-title')) {
+        document.getElementById('step-9-title').textContent = wizardTexts.step9.title;
+        document.getElementById('step-9-description').textContent = wizardTexts.step9.description;
+        document.getElementById('step-9-intro-text').textContent = wizardTexts.step9.introText;
+    }
+    if (wizardTexts.step10 && document.getElementById('step-10-title')) {
+        document.getElementById('step-10-title').textContent = wizardTexts.step10.title;
+        document.getElementById('step-10-description').textContent = wizardTexts.step10.description;
+        document.getElementById('step-10-intro-text').textContent = wizardTexts.step10.introText;
+    }
+    if (wizardTexts.step11 && document.getElementById('step-11-title')) {
+        document.getElementById('step-11-title').textContent = wizardTexts.step11.title;
+        document.getElementById('step-11-description').textContent = wizardTexts.step11.description;
+        document.getElementById('step-11-intro-text').textContent = wizardTexts.step11.introText;
+    }
+    if (wizardTexts.step12 && document.getElementById('step-12-title')) {
+        document.getElementById('step-12-title').textContent = wizardTexts.step12.title;
+        document.getElementById('step-12-description').textContent = wizardTexts.step12.description;
+        document.getElementById('step-12-intro-text').textContent = wizardTexts.step12.introText;
+    }
+    if (wizardTexts.step13 && document.getElementById('step-13-title')) {
+        document.getElementById('step-13-title').textContent = wizardTexts.step13.title;
+        document.getElementById('step-13-description').textContent = wizardTexts.step13.description;
+        document.getElementById('step-13-intro-text').textContent = wizardTexts.step13.introText;
+    }
+    if (wizardTexts.step14 && document.getElementById('step-14-title')) {
+        document.getElementById('step-14-title').textContent = wizardTexts.step14.title;
+        document.getElementById('step-14-description').textContent = wizardTexts.step14.description;
+        document.getElementById('step-14-intro-text').textContent = wizardTexts.step14.introText;
+    }
+    if (wizardTexts.step15 && document.getElementById('step-15-title')) {
+        document.getElementById('step-15-title').textContent = wizardTexts.step15.title;
+        document.getElementById('step-15-description').textContent = wizardTexts.step15.description;
+        document.getElementById('step-15-intro-text').textContent = wizardTexts.step15.introText;
+    }
+    if (wizardTexts.step16 && document.getElementById('step-16-title')) {
+        document.getElementById('step-16-title').textContent = wizardTexts.step16.title;
+        document.getElementById('step-16-description').textContent = wizardTexts.step16.description;
+        document.getElementById('step-16-intro-text').textContent = wizardTexts.step16.introText;
+    }
+    if (wizardTexts.step17 && document.getElementById('step-17-title')) {
+        document.getElementById('step-17-title').textContent = wizardTexts.step17.title;
+        document.getElementById('step-17-description').textContent = wizardTexts.step17.description;
+        document.getElementById('step-17-intro-text').textContent = wizardTexts.step17.introText;
+    }
+    if (wizardTexts.step18 && document.getElementById('step-18-title')) {
+        document.getElementById('step-18-title').textContent = wizardTexts.step18.title;
+        document.getElementById('step-18-description').textContent = wizardTexts.step18.description;
+        document.getElementById('step-18-intro-text').textContent = wizardTexts.step18.introText;
+    }
+    if (wizardTexts.step19 && document.getElementById('step-19-title')) {
+        document.getElementById('step-19-title').textContent = wizardTexts.step19.title;
+        document.getElementById('step-19-description').textContent = wizardTexts.step19.description;
+        document.getElementById('step-19-intro-text').textContent = wizardTexts.step19.introText;
+    }
+    if (wizardTexts.step20 && document.getElementById('step-20-title')) {
+        document.getElementById('step-20-title').textContent = wizardTexts.step20.title;
+        document.getElementById('step-20-description').textContent = wizardTexts.step20.description;
+        document.getElementById('step-20-intro-text').textContent = wizardTexts.step20.introText;
+    }
+    if (wizardTexts.step21 && document.getElementById('step-21-title')) {
+        document.getElementById('step-21-title').textContent = wizardTexts.step21.title;
+        document.getElementById('step-21-description').textContent = wizardTexts.step21.description;
+        document.getElementById('step-21-intro-text').textContent = wizardTexts.step21.introText;
+    }
+    if (wizardTexts.summary && document.getElementById('summary-title')) {
+        document.getElementById('summary-title').textContent = wizardTexts.summary.title;
+        document.getElementById('summary-prev-button').textContent = wizardTexts.summary.prevButton;
+        document.getElementById('summary-export-button').textContent = wizardTexts.summary.exportButton;
+        document.getElementById('summary-reset-button').textContent = wizardTexts.summary.resetButton;
+    }
 }
 
 function updateProgressBar() {
@@ -563,6 +634,116 @@ async function handleAISuggestionClick(event) {
     }
 }
 
+function createGrids(rows = 3, cols = 3, numGrids = 1) {
+    const gridContainer = document.getElementById('grid-container');
+    gridContainer.innerHTML = '';
+    for (let i = 0; i < numGrids; i++) {
+        addGrid(rows, cols, i + 1);
+    }
+
+    const elements = Array.from(document.querySelectorAll('.draggable'));
+    elements.forEach((element, index) => {
+        const gridItem = document.createElement('div');
+        gridItem.classList.add('grid-item');
+        gridItem.appendChild(element);
+        gridContainer.children[Math.floor(index / (rows * cols))].querySelector('.grid-container').appendChild(gridItem);
+    });
+
+    enableDragAndDrop();
+}
+
+function addGrid(rows, cols, chapterNumber) {
+    const gridContainer = document.getElementById('grid-container');
+    const gridWrapper = document.createElement('div');
+    gridWrapper.classList.add('grid-wrapper');
+    const gridHeader = document.createElement('h3');
+    gridHeader.contentEditable = "true";
+    gridHeader.textContent = `Kapittel ${chapterNumber}`;
+    gridWrapper.appendChild(gridHeader);
+
+    const grid = document.createElement('div');
+    grid.classList.add('grid-container');
+    grid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    gridWrapper.appendChild(grid);
+    gridContainer.appendChild(gridWrapper);
+}
+
+function enableDragAndDrop() {
+    const draggables = document.querySelectorAll('.draggable');
+    const gridItems = document.querySelectorAll('.grid-item');
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
+        });
+
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+        });
+    });
+
+    gridItems.forEach(item => {
+        item.addEventListener('dragover', e => {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(item, e.clientY);
+            const dragging = document.querySelector('.dragging');
+            if (afterElement == null) {
+                item.appendChild(dragging);
+            } else {
+                item.insertBefore(dragging, afterElement);
+            }
+        });
+    });
+
+    const gridWrappers = document.querySelectorAll('.grid-wrapper');
+    gridWrappers.forEach(wrapper => {
+        wrapper.addEventListener('dragover', e => {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(wrapper.querySelector('.grid-container'), e.clientY);
+            const dragging = document.querySelector('.dragging');
+            if (afterElement == null) {
+                wrapper.querySelector('.grid-container').appendChild(dragging);
+            } else {
+                wrapper.querySelector('.grid-container').insertBefore(dragging, afterElement);
+            }
+        });
+    });
+}
+
+function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
+
+    return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+function addNewChapter() {
+    const rows = parseInt(document.getElementById('new-rows').value, 3);
+    const cols = parseInt(document.getElementById('new-cols').value, 3);
+    const chapterNumber = document.querySelectorAll('.grid-wrapper').length + 1;
+    if (!isNaN(rows) && !isNaN(cols)) {
+        addGrid(rows, cols, chapterNumber);
+        enableDragAndDrop();
+    }
+}
+
+function updateGrid() {
+    const rows = parseInt(document.getElementById('rows').value, 6);
+    const cols = parseInt(document.getElementById('cols').value, 6);
+    const numGrids = parseInt(document.getElementById('numGrids').value, 3);
+    if (!isNaN(rows) && !isNaN(cols) && !isNaN(numGrids)) {
+        createGrids(rows, cols, numGrids);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
     setWizardTexts();
@@ -582,5 +763,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const html2canvasScript = document.createElement('script');
     html2canvasScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    html2canvasScript.onload = () => {
+        document.getElementById('build-report-button').addEventListener('click', () => {
+            const customizeMenu = document.getElementById('customize-grid-menu');
+            customizeMenu.style.display = customizeMenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.getElementById('add-chapter-button').addEventListener('click', addNewChapter);
+
+        document.getElementById('rows').addEventListener('change', updateGrid);
+        document.getElementById('cols').addEventListener('change', updateGrid);
+        document.getElementById('numGrids').addEventListener('change', updateGrid);
+    };
     document.head.appendChild(html2canvasScript);
 });
