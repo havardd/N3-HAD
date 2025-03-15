@@ -259,7 +259,11 @@ a:focus, button:focus, input:focus, textarea:focus {
 .grid-container {
     display: grid;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
 }
 
 .grid-container-2-cols {
@@ -286,20 +290,10 @@ a:focus, button:focus, input:focus, textarea:focus {
 }
 
 #customize-grid-menu {
-    display: none;
+    display: flex; /* Change from 'none' to 'flex' */
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;
-}
-
-#customize-grid-menu input {
-    width: 50px;
-    padding: 5px;
-    margin-right: 10px;
-}
-
-#customize-grid-menu button {
-    padding: 5px 10px;
 }
 
 #new-chapter-menu {
@@ -319,6 +313,20 @@ a:focus, button:focus, input:focus, textarea:focus {
     padding: 5px 10px;
 }
 
+.delete-chapter-button {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.delete-chapter-button:hover {
+    background: #c0392b;
+}
+
 [contenteditable="true"] {
     border: 1px dashed #ccc;
     padding: 5px;
@@ -332,8 +340,19 @@ a:focus, button:focus, input:focus, textarea:focus {
 
 .grid-wrapper {
     margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 .grid-wrapper h3 {
     margin-bottom: 10px;
+}
+
+.slider-label {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #333;
 }

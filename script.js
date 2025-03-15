@@ -344,14 +344,14 @@ function renderLineChart() {
 
 function saveData() {
     const data = {
-        prosjektNavn: document.getElementById('prosjekt-navn').value,
-        arbeidssted: document.getElementById('arbeidssted').value,
-        behov: document.getElementById('behov-beskrivelse').value,
-        losning: document.getElementById('losning-beskrivelse').value,
-        padriver: document.getElementById('padriver-navn').value,
-        team: document.getElementById('team-medlemmer').value,
-        forankring: document.getElementById('forankring-beskrivelse').value,
-        step21: document.getElementById('step-21-description').value
+        prosjektNavn: document.getElementById('prosjekt-navn')?.value || '',
+        arbeidssted: document.getElementById('arbeidssted')?.value || '',
+        behov: document.getElementById('behov-beskrivelse')?.value || '',
+        losning: document.getElementById('losning-beskrivelse')?.value || '',
+        padriver: document.getElementById('padriver-navn')?.value || '',
+        team: document.getElementById('team-medlemmer')?.value || '',
+        forankring: document.getElementById('forankring-beskrivelse')?.value || '',
+        step21: document.getElementById('step-21-description')?.value || ''
     };
     localStorage.setItem('projectData', JSON.stringify(data));
 }
@@ -359,14 +359,14 @@ function saveData() {
 function loadData() {
     const data = JSON.parse(localStorage.getItem('projectData'));
     if (data) {
-        document.getElementById('prosjekt-navn').value = data.prosjektNavn;
-        document.getElementById('arbeidssted').value = data.arbeidssted;
-        document.getElementById('behov-beskrivelse').value = data.behov;
-        document.getElementById('losning-beskrivelse').value = data.losning;
-        document.getElementById('padriver-navn').value = data.padriver;
-        document.getElementById('team-medlemmer').value = data.team;
-        document.getElementById('forankring-beskrivelse').value = data.forankring;
-        document.getElementById('step-21-description').value = data.step21;
+        if (document.getElementById('prosjekt-navn')) document.getElementById('prosjekt-navn').value = data.prosjektNavn;
+        if (document.getElementById('arbeidssted')) document.getElementById('arbeidssted').value = data.arbeidssted;
+        if (document.getElementById('behov-beskrivelse')) document.getElementById('behov-beskrivelse').value = data.behov;
+        if (document.getElementById('losning-beskrivelse')) document.getElementById('losning-beskrivelse').value = data.losning;
+        if (document.getElementById('padriver-navn')) document.getElementById('padriver-navn').value = data.padriver;
+        if (document.getElementById('team-medlemmer')) document.getElementById('team-medlemmer').value = data.team;
+        if (document.getElementById('forankring-beskrivelse')) document.getElementById('forankring-beskrivelse').value = data.forankring;
+        if (document.getElementById('step-21-description')) document.getElementById('step-21-description').value = data.step21;
     }
 }
 
@@ -726,13 +726,19 @@ function getDragAfterElement(container, y) {
 }
 
 function addNewChapter() {
-    const rows = parseInt(document.getElementById('new-rows').value, 3);
-    const cols = parseInt(document.getElementById('new-cols').value, 3);
+    const newRowsInput = document.getElementById('new-rows');
+    const newColsInput = document.getElementById('new-cols');
+    const rows = newRowsInput ? parseInt(newRowsInput.value, 10) : 3;
+    const cols = newColsInput ? parseInt(newColsInput.value, 10) : 3;
     const chapterNumber = document.querySelectorAll('.grid-wrapper').length + 1;
     if (!isNaN(rows) && !isNaN(cols)) {
         addGrid(rows, cols, chapterNumber);
         enableDragAndDrop();
     }
+}
+
+function updateSummary() {
+    showSummary();
 }
 
 function updateGrid() {
@@ -764,16 +770,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const html2canvasScript = document.createElement('script');
     html2canvasScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
     html2canvasScript.onload = () => {
-        document.getElementById('build-report-button').addEventListener('click', () => {
-            const customizeMenu = document.getElementById('customize-grid-menu');
-            customizeMenu.style.display = customizeMenu.style.display === 'none' ? 'block' : 'none';
-        });
+        const buildReportButton = document.getElementById('build-report-button');
+        if (buildReportButton) {
+            buildReportButton.addEventListener('click', () => {
+                const customizeMenu = document.getElementById('customize-grid-menu');
+                if (customizeMenu) {
+                    customizeMenu.style.display = customizeMenu.style.display === 'none' ? 'block' : 'none';
+                }
+            });
+        }
 
-        document.getElementById('add-chapter-button').addEventListener('click', addNewChapter);
+        const addChapterButton = document.getElementById('add-chapter-button');
+        if (addChapterButton) {
+            addChapterButton.addEventListener('click', addNewChapter);
+        }
 
-        document.getElementById('rows').addEventListener('change', updateGrid);
-        document.getElementById('cols').addEventListener('change', updateGrid);
-        document.getElementById('numGrids').addEventListener('change', updateGrid);
+        const rowsInput = document.getElementById('rows');
+        if (rowsInput) {
+            rowsInput.addEventListener('change', updateGrid);
+        }
+
+        const colsInput = document.getElementById('cols');
+        if (colsInput) {
+            colsInput.addEventListener('change', updateGrid);
+        }
+
+        const numGridsInput = document.getElementById('numGrids');
+        if (numGridsInput) {
+            numGridsInput.addEventListener('change', updateGrid);
+        }
     };
     document.head.appendChild(html2canvasScript);
 });

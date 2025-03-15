@@ -58,8 +58,6 @@
                 <form>
                     <label for="behov-beskrivelse" id="step-1-description"></label>
                     <textarea id="behov-beskrivelse" name="behov-beskrivelse" placeholder="Beskriv behovet" required></textarea>
-                    <label for="behov-evaluation">Evaluering (1-5):</label>
-                    <input type="number" id="behov-evaluation" name="behov-evaluation" min="1" max="5" required>
                     <button type="button" id="step-1-prev" onclick="prevStep()">Forrige</button>
                     <button type="button" id="step-1-next" onclick="nextStep()">Neste</button>
                 </form>
@@ -82,8 +80,6 @@
                 <form>
                     <label for="losning-beskrivelse" id="step-2-description"></label>
                     <textarea id="losning-beskrivelse" name="losning-beskrivelse" placeholder="Beskriv løsningen" required></textarea>
-                    <label for="losning-evaluation">Evaluering (1-5):</label>
-                    <input type="number" id="losning-evaluation" name="losning-evaluation" min="1" max="5" required>
                     <button type="button" id="step-2-prev" onclick="prevStep()">Forrige</button>
                     <button type="button" id="step-2-next" onclick="nextStep()">Neste</button>
                 </form>
@@ -106,8 +102,6 @@
                 <form>
                     <label for="padriver-navn" id="step-3-description"></label>
                     <input type="text" id="padriver-navn" name="padriver-navn" placeholder="Skriv inn pådriverens navn" required>
-                    <label for="padriver-evaluation">Evaluering (1-5):</label>
-                    <input type="number" id="padriver-evaluation" name="padriver-evaluation" min="1" max="5" required>
                     <button type="button" id="step-3-prev" onclick="prevStep()">Forrige</button>
                     <button type="button" id="step-3-next" onclick="nextStep()">Neste</button>
                 </form>
@@ -130,15 +124,13 @@
                 <form>
                     <label for="team-medlemmer" id="step-4-description"></label>
                     <textarea id="team-medlemmer" name="team-medlemmer" placeholder="Skriv inn navnene på teammedlemmene" required></textarea>
-                    <label for="team-evaluation">Evaluering (1-5):</label>
-                    <input type="number" id="team-evaluation" name="team-evaluation" min="1" max="5" required>
                     <button type="button" id="step-4-prev" onclick="prevStep()">Forrige</button>
                     <button type="button" id="step-4-next" onclick="nextStep()">Neste</button>
                 </form>
                 <button type="button" id="step-4-summary" onclick="showSummary()">Oppsummering</button>
                 <div class="progress-bar">
                     <div class="active"></div>
-                    <div "active"></div>
+                    <div class="active"></div>
                     <div class="active"></div>
                     <div class="active"></div>
                     <div></div>
@@ -154,8 +146,6 @@
                 <form>
                     <label for="forankring-beskrivelse" id="step-5-description"></label>
                     <textarea id="forankring-beskrivelse" name="forankring-beskrivelse" placeholder="Beskriv forankringen" required></textarea>
-                    <label for="forankring-evaluation">Evaluering (1-5):</label>
-                    <input type="number" id="forankring-evaluation" name="forankring-evaluation" min="1" max="5" required>
                     <button type="button" id="step-5-prev" onclick="prevStep()">Forrige</button>
                     <button type="button" id="step-5-next" onclick="nextStep()">Neste</button>
                 </form>
@@ -488,19 +478,48 @@
                     <div class="active"></div>
                 </div>
             </div>
+            <!-- Step 21: Evaluations -->
             <div class="step" id="step-21">
-                <h2 id="step-21-title"></h2>
+                <h2>Evalueringer</h2>
                 <div class="intro-section">
                     <img src="N3ikon.png" alt="BLT-verktøyet" class="intro-image">
-                    <p id="step-21-intro-text"></p>
+                    <p>Vennligst vurder de følgende aspektene av prosjektet.</p>
                 </div>
                 <form>
-                    <label for="step-21-description" id="step-21-description"></label>
-                    <textarea id="step-21-description" name="step-21-description" placeholder="Details for step 21" required></textarea>
+                    <div class="form-group">
+                        <label for="behov-evaluation">Behov:</label>
+                        <input type="range" id="behov-evaluation" name="behov-evaluation" min="1" max="5" step="1" value="1" oninput="updateSliderLabel('behov-evaluation-label', this.value)">
+                        <div id="behov-evaluation-label" class="slider-label">1 - Dårlig</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="losning-evaluation">Løsning:</label>
+                        <input type="range" id="losning-evaluation" name="losning-evaluation" min="1" max="5" step="1" value="1" oninput="updateSliderLabel('losning-evaluation-label', this.value)">
+                        <div id="losning-evaluation-label" class="slider-label">1 - Dårlig</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="padriver-evaluation">Pådriver:</label>
+                        <input type="range" id="padriver-evaluation" name="padriver-evaluation" min="1" max="5" step="1" value="1" oninput="updateSliderLabel('padriver-evaluation-label', this.value)">
+                        <div id="padriver-evaluation-label" class="slider-label">1 - Dårlig</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="team-evaluation">Team:</label>
+                        <input type="range" id="team-evaluation" name="team-evaluation" min="1" max="5" step="1" value="1" oninput="updateSliderLabel('team-evaluation-label', this.value)">
+                        <div id="team-evaluation-label" class="slider-label">1 - Dårlig</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="forankring-evaluation">Forankring:</label>
+                        <input type="range" id="forankring-evaluation" name="forankring-evaluation" min="1" max="5" step="1" value="1" oninput="updateSliderLabel('forankring-evaluation-label', this.value)">
+                        <div id="forankring-evaluation-label" class="slider-label">1 - Dårlig</div>
+                    </div>
                     <button type="button" id="step-21-prev" onclick="prevStep()">Forrige</button>
+                    <button type="button" id="step-21-next" onclick="nextStep()">Neste</button>
                 </form>
-                <button type="button" id="step-21-summary" onclick="showSummary()">Oppsummering</button>
+<button type="button" id="step-21-summary" onclick="showSummary()">Oppsummering</button>
                 <div class="progress-bar">
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
+                    <div class="active"></div>
                     <div class="active"></div>
                 </div>
                 <div style="margin-top: 20px;">
@@ -510,24 +529,16 @@
             </div>
             <!-- Summary -->
             <div class="step" id="summary">
+                <h2 contenteditable="true" id="report-title">Rapport</h2>
+                <p contenteditable="true" id="report-date">${new Date().toLocaleDateString()}</p>
                 <button type="button" id="summary-prev-button" onclick="prevStep()">Forrige</button>
                 <button type="button" id="summary-export-button" onclick="exportToPDF()">Eksporter til PDF</button>
                 <button type="button" id="summary-export-png-button" onclick="exportToPNG()">Eksporter til PNG</button>
                 <button type="button" id="summary-reset-button" onclick="resetForm()">Start på nytt</button>
                 <button type="button" id="build-report-button">Bygg din egen rapport</button>
-                <h2 contenteditable="true" id="report-title">Rapport</h2>
-                <p contenteditable="true" id="report-date">${new Date().toLocaleDateString()}</p>
+                <button type="button" id="update-summary-button" onclick="updateSummary()">Tilbakestill oppsummering</button> <!-- New button -->
                 <div id="summary-content"></div>
                 <div id="grid-container"></div>
-                <div id="customize-grid-menu">
-                    <label for="rows">Rader:</label>
-                    <input type="number" id="rows" name="rows" value="3" min="1">
-                    <label for="cols">Kolonner:</label>
-                    <input type="number" id="cols" name="cols" value="3" min="1">
-                    <label for="numGrids">Antall grider:</label>
-                    <input type="number" id="numGrids" name="numGrids" value="1" min="1"> <!-- Change default to 1 -->
-                    <button type="button" onclick="updateGrid()">Oppdater grid</button>
-                </div>
                 <div id="new-chapter-menu">
                     <button type="button" id="add-chapter-button">Legg til nytt kapittel</button>
                 </div>
